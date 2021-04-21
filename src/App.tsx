@@ -1,16 +1,18 @@
 import React from "react"
 import Navbar from "./components/navbar/navbar"
 import AppCreators from "./components/app-creators/app-creators"
+import CurrentForecast from "./components/current-forecast/current-forecast"
 import "./App.scss"
 import "antd/dist/antd.css"
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <Navbar />
-      <AppCreators/>
+      <div className="App__inner">
+        <Navbar />
+        <AppCreators />
+        <CurrentForecast />
+      </div>
     </div>
   )
 }
-
-export default App
