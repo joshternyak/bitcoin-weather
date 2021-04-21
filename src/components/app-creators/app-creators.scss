@@ -1,0 +1,22 @@
+.AppCreators {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 10px;
+  right: 5px;
+
+  &__creator {
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    width: 37px;
+    object-fit: cover;
+    margin: 0px 5px;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        opacity: 0.8;
+        border-color: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
