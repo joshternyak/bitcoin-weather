@@ -1,0 +1,18 @@
+.PoweredBy {
+  text-align: center;
+  font-size: 10px;
+  color: white;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 3;
+  transform: translateX(-50%);
+
+  &__link {
+    color: white;
+
+    &:hover {
+      color: darken(white, 10);
+    }
+  }
+}
