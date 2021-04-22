@@ -8,7 +8,7 @@ export default function CurrentForecast({
   currentPrice,
   bitcoinPriceNum,
 }: any) {
-  const lowBitcoinPrice = bitcoinPriceNum
+  const lowBitcoinPrice = parseInt(bitcoinPriceNum) / 2
   console.log(lowBitcoinPrice)
   const bitcoinPrice = numeral(lowBitcoinPrice).format("0.0a")
   const bitcoinPriceDisplay = `$${bitcoinPrice}`
@@ -26,7 +26,7 @@ export default function CurrentForecast({
         </div>
         <div className="CurrentForecast__flex-group">
           <p className="CurrentForecast__high-price">{currentPrice}</p>
-          <p className="CurrentForecast__low-price">{bitcoinPriceDisplay}</p>
+          <p className="CurrentForecast__low-price">{bitcoinPriceDisplay}K</p>
         </div>
       </div>
     </div>
