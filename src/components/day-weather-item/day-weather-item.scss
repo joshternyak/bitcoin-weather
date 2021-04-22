@@ -1,0 +1,54 @@
+.DayWeatherItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  align-items: center;
+
+  &__col {
+    flex-basis: 33%;
+    display: flex;
+
+    &:nth-child(2) {
+      justify-content: center;
+    }
+
+    &:nth-child(3) {
+      justify-content: flex-end;
+    }
+  }
+
+  &__day {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
+    color: #ffffff;
+    width: 90px;
+  }
+
+  &__weather-icon {
+    width: 23px;
+    height: 23px;
+    background-color: gold;
+    border-radius: 50%;
+  }
+
+  &__price-group {
+    display: flex;
+    align-items: center;
+  }
+
+  &__price {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 100%;
+    margin: 0px;
+    color: #ffffff;
+
+    &--low {
+      color: rgba(255, 255, 255, 0.5);
+      padding-left: 10px;
+    }
+  }
+}

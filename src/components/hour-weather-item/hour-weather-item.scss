@@ -1,0 +1,32 @@
+.HourWeatherItem {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 12px 10px;
+
+  &__time {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 13px;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+
+  &__weather-icon {
+    width: 23px;
+    height: 23px;
+    background-color: gold;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+
+  &__price {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    color: #ffffff;
+    margin: 0;
+  }
+}

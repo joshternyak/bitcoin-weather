@@ -1,0 +1,17 @@
+.HourlyForecast {
+  display: flex;
+  border-top: 1px solid #ffffff40;
+  border-bottom: 1px solid #ffffff40;
+  max-width: 100%;
+  overflow-x: scroll;
+  cursor: pointer;
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

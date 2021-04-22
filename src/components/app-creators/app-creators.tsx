@@ -7,6 +7,7 @@ import { Tooltip } from "antd"
 export default function AppCreators() {
   return (
     <div className="AppCreators">
+      <div className="AppCreators__created-by-label">Creators:</div>
       <Tooltip placement="bottomRight" title="Jordan Tuwiner">
         <img
           src={jordan}

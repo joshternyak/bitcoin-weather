@@ -5,7 +5,7 @@ import LightningBolt from "./lightning-bolt/lightning-bolt"
 import "./cloud.scss"
 
 export default function Cloud() {
-  const isWeatherSunny = false
+  const isWeatherSunny = true
 
   return (
     <>
