@@ -4,16 +4,17 @@ import darkcloud from "../../../assets/images/dark-cloud.png"
 import LightningBolt from "./lightning-bolt/lightning-bolt"
 import "./cloud.scss"
 
-export default function Cloud({theme, night}: any) {
+export default function Cloud() {
+  const isWeatherSunny = true
 
   return (
     <>
       <img
-        src={night ? darkcloud : lightcloud}
+        src={isWeatherSunny ? lightcloud : darkcloud}
         alt="cloud"
         className="Cloud"
       />
-      {theme === "storm" && <LightningBolt />}
+      {!isWeatherSunny && <LightningBolt />}
     </>
   )
 }

@@ -1,11 +1,11 @@
 import React from "react"
 import "./current-forecast.scss"
 
-export default function CurrentForecast({theme}: any) {
+export default function CurrentForecast() {
   return (
     <div className="CurrentForecast">
       <p className="CurrentForecast__location">Minnesota</p>
-      <p className="CurrentForecast__weather-type">{theme}</p>
+      <p className="CurrentForecast__weather-type">Partly Cloudy</p>
       <h1 className="CurrentForecast__price">$39.9K</h1>
       
       <div className="CurrentForecast__details">
