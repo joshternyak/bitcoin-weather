@@ -36,26 +36,6 @@ export default function App() {
   const bitcoinPriceDisplay = `$${bitcoinPrice}`
   const unRoundedBitcoinPriceAsNum = parseInt(unRoundedBitcoinPrice)
 
-  // For fetching the current bitcoin price
-  useEffect(() => {
-    async function fetchPrices() {
-      const res = await fetch(
-        "https://api.coindesk.com/v1/bpi/currentprice.json"
-      )
-      const data = await res.json()
-      setCurrency(data.bpi.USD.code)
-      setPriceData(data.bpi)
-      setCurrency("USD")
-    }
-    setTimeout(() => {
-      setLoading(false)
-    }, 1500)
-    const interval = setInterval(() => {
-      fetchPrices()
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [currency, priceData, loading])
-
   const setStormTheme = () => {
     setTheme("storm")
     setCloudyTheme()
@@ -84,6 +64,25 @@ export default function App() {
     if (unRoundedBitcoinPriceAsNum < 40) setCloudyTheme()
   }, 1000)
 
+  // For fetching the current bitcoin price
+  useEffect(() => {
+    async function fetchPrices() {
+      const res = await fetch(
+        "https://api.coindesk.com/v1/bpi/currentprice.json"
+      )
+      const data = await res.json()
+      setCurrency(data.bpi.USD.code)
+      setPriceData(data.bpi)
+    }
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+    const interval = setInterval(() => {
+      fetchPrices()
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [currency, priceData, loading])
+
   // Generate a random integer between two numbers
   const randomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -105,6 +104,11 @@ export default function App() {
     hourByHourHighPricePrediction * parseInt(randomLowPriceMultiplier)
   )
   const hourByHourLowPricePrediction = parseInt(randomLowPrice)
+
+  // We should write two different useEffect functions
+  // 1. One that only runs once which will fetch the bitcoin price once and plug it into the high and low prices variables that will then be passed as props into the hourly and weekly forecast. Inside those components the high and low price props will be multiplied by another random number so they're random for each weekday item or hour item
+
+  // 2. And the other useeffect will stay the same like it is now to constantly update the main price every second
 
   return (
     <div className="App">
