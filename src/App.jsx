@@ -82,11 +82,11 @@ export default function App() {
   const cloudyInterval = setInterval(() => {
     if (unRoundedBitcoinPriceAsNum < 40) setCloudyTheme()
   }, 1000)
-  
+
   return (
     <div className="App">
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : (
         <div className="App__inner">
           <div className="App__inner-container">
