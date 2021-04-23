@@ -95,7 +95,6 @@ export default function App() {
             <button onClick={setSunnyTheme}>Sunny</button>
             <button onClick={setCloudyTheme}>Cloudy</button>
             <Navbar />
-            <AppCreators />
             <CurrentForecast
               bitcoinPriceNum={unRoundedBitcoinPrice}
               currentPrice={bitcoinPriceDisplay}
@@ -105,6 +104,7 @@ export default function App() {
             <WeeklyForecast />
           </div>
           <Sky weatherState={weatherState} />
+          <AppCreators />
           <PoweredBy />
         </div>
       )}
