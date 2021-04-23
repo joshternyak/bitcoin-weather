@@ -54,16 +54,6 @@ export default function App() {
     setNight(false)
   }
 
-  // Show storm theme if price of bitcoin is more than $50K
-  const stormInterval = setInterval(() => {
-    if (unRoundedBitcoinPriceAsNum > 50) setStormTheme()
-  }, 1000)
-
-  // Show cloudy theme if price of bitcoin is less than $40K
-  const cloudyInterval = setInterval(() => {
-    if (unRoundedBitcoinPriceAsNum < 40) setCloudyTheme()
-  }, 1000)
-
   // For fetching the current bitcoin price
   useEffect(() => {
     async function fetchPrices() {
@@ -76,12 +66,23 @@ export default function App() {
     }
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
-    const interval = setInterval(() => {
-      fetchPrices()
     }, 1000)
-    return () => clearInterval(interval)
-  }, [currency, priceData, loading])
+    // This interval is temporarily commented out.
+    // const interval = setInterval(() => {
+    fetchPrices()
+    // }, 1000)
+    // return () => clearInterval(interval)
+  }, [])
+
+  // Show storm theme if price of bitcoin is more than $50K
+  setInterval(() => {
+    if (unRoundedBitcoinPriceAsNum > 45) setStormTheme()
+  }, 1000)
+
+  // Show cloudy theme if price of bitcoin is less than $40K
+  setInterval(() => {
+    if (unRoundedBitcoinPriceAsNum < 40) setCloudyTheme()
+  }, 1000)
 
   // Generate a random integer between two numbers
   const randomNumber = (min, max) => {
@@ -110,6 +111,11 @@ export default function App() {
 
   // 2. And the other useeffect will stay the same like it is now to constantly update the main price every second
 
+  // For now, we'll just use the original useeffect that is updated to only run once
+
+  const hourlyPriceForecast = hourByHourHighPricePredictionMultiplied
+  const lowPriceForecast = hourByHourLowPricePrediction
+
   return (
     <div className="App">
       {loading ? (
@@ -131,8 +137,17 @@ export default function App() {
               currentPrice={bitcoinPriceDisplay}
               weatherState={weatherState}
             />
-            <HourlyForecast />
-            <WeeklyForecast priceToday={bitcoinPriceDisplay} />
+            <HourlyForecast
+              randomNumber={randomNumber}
+              hourlyPriceForecast={hourlyPriceForecast}
+              lowPriceForecast={lowPriceForecast}
+            />
+            <WeeklyForecast
+              randomNumber={randomNumber}
+              dailyHighPriceForecast={hourlyPriceForecast}
+              dailyLowPriceForecast={lowPriceForecast}
+              priceToday={bitcoinPriceDisplay}
+            />
           </div>
           <Sky weatherState={weatherState} />
           <AppCreators />

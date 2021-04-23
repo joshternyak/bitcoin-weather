@@ -1,7 +1,7 @@
 import React from "react"
 import "./day-weather-item.scss"
 
-export default function DayWeatherItem({ day, price, today }: any) {
+export default function DayWeatherItem({ day, highPriceForecast, lowPriceForecast, today }: any) {
   return (
     <div className={`DayWeatherItem ${today ? "DayWeatherItem--today" : ""}`}>
       <div className="DayWeatherItem__col">
@@ -23,14 +23,14 @@ export default function DayWeatherItem({ day, price, today }: any) {
               today ? "DayWeatherItem__price--today" : ""
             }`}
           >
-            {today ? `${price}` : `$${price}`}
+            {today ? `${highPriceForecast}` : `$${highPriceForecast}`}
           </p>
           <p
             className={`DayWeatherItem__price DayWeatherItem__price--low ${
               today ? "DayWeatherItem__price--low-today" : ""
             }`}
           >
-            $30.5K
+            {today ? `${lowPriceForecast}` : `$${lowPriceForecast}`}
           </p>
         </div>
       </div>
