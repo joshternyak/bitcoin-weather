@@ -5,7 +5,7 @@ import Cloud from "./cloud/cloud"
 import Rain from "./rain/rain"
 import Moon from "./moon/moon"
 
-export default function Sky({ theme, cloudy, night }: any) {
+export default function Sky({ weatherState: { theme, cloudy, night } }: any) {
   return (
     <div className={`Sky Sky--${theme} ${night ? "Sky--night" : ""} `}>
       {theme === "sunny" && !night && <Sun />}

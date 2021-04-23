@@ -4,19 +4,28 @@ import { currentDay } from "../../helpers"
 import numeral from "numeral"
 
 export default function CurrentForecast({
-  theme,
   currentPrice,
   bitcoinPriceNum,
-}: any) {
+  weatherState: { theme, cloudy, night },
+}) {
   const lowBitcoinPrice = parseInt(bitcoinPriceNum) / 2
   console.log(lowBitcoinPrice)
   const bitcoinPrice = numeral(lowBitcoinPrice).format("0.0a")
   const bitcoinPriceDisplay = `$${bitcoinPrice}`
+  console.log(`Night: ${night}, Theme: ${theme}`)
+
+  const isWeatherClear = night && theme !== "storm" && theme !== "cloudy"
+
+  if (isWeatherClear) {
+    theme = "Clear"
+  }
+
+  const weatherType = !night && theme !== "storm" && !cloudy ? "Clear" : theme
 
   return (
     <div className="CurrentForecast">
       <p className="CurrentForecast__location">Minnesota</p>
-      <p className="CurrentForecast__weather-type">{theme}</p>
+      <p className="CurrentForecast__weather-type">{weatherType}</p>
       <h1 className="CurrentForecast__price">{currentPrice}</h1>
 
       <div className="CurrentForecast__details">
