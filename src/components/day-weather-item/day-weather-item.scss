@@ -1,8 +1,11 @@
+$today-color: black;
+
 .DayWeatherItem {
   display: flex;
   justify-content: space-between;
   padding: 6px 10px;
   align-items: center;
+  margin: 0px 0px 6px 0;
 
   &__col {
     flex-basis: 33%;
@@ -24,6 +27,10 @@
     line-height: 100%;
     color: #ffffff;
     width: 90px;
+
+    &--today {
+      color: $today-color;
+    }
   }
 
   &__weather-icon {
@@ -51,5 +58,15 @@
       color: rgba(255, 255, 255, 0.5);
       padding-left: 10px;
     }
+
+    &--today,
+    &--low-today {
+      color: $today-color;
+    }
+  }
+
+  &--today {
+    background: white;
+    border-radius: 10px;
   }
 }

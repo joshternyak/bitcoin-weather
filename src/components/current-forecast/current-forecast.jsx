@@ -9,10 +9,8 @@ export default function CurrentForecast({
   weatherState: { theme, cloudy, night },
 }) {
   const lowBitcoinPrice = parseInt(bitcoinPriceNum) / 2
-  console.log(lowBitcoinPrice)
   const bitcoinPrice = numeral(lowBitcoinPrice).format("0.0a")
   const bitcoinPriceDisplay = `$${bitcoinPrice}`
-  console.log(`Night: ${night}, Theme: ${theme}`)
 
   const isWeatherClear = night && theme !== "storm" && theme !== "cloudy"
 

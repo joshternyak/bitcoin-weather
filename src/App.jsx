@@ -73,6 +73,7 @@ export default function App() {
     setTheme("sunny")
     setNight(false)
   }
+
   // Show storm theme if price of bitcoin is more than $50K
   const stormInterval = setInterval(() => {
     if (unRoundedBitcoinPriceAsNum > 50) setStormTheme()
@@ -83,6 +84,28 @@ export default function App() {
     if (unRoundedBitcoinPriceAsNum < 40) setCloudyTheme()
   }, 1000)
 
+  // Generate a random integer between two numbers
+  const randomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  // Generate a random high price
+  const randomHighPrice = randomNumber(
+    unRoundedBitcoinPriceAsNum,
+    unRoundedBitcoinPriceAsNum * 1.5
+  )
+  const hourByHourHighPricePrediction = parseInt(randomHighPrice)
+  const hourByHourHighPricePredictionMultiplied =
+    hourByHourHighPricePrediction * 1000
+
+  // Generate a random low price
+  const randomLowPriceMultiplier = randomNumber(950, 800)
+  const randomLowPrice = randomNumber(
+    hourByHourHighPricePredictionMultiplied,
+    hourByHourHighPricePrediction * parseInt(randomLowPriceMultiplier)
+  )
+  const hourByHourLowPricePrediction = parseInt(randomLowPrice)
+
   return (
     <div className="App">
       {loading ? (
@@ -90,6 +113,10 @@ export default function App() {
       ) : (
         <div className="App__inner">
           <div className="App__inner-container">
+            <h2>
+              Random high price: {hourByHourHighPricePredictionMultiplied}
+            </h2>
+            <h2>Random low price: {hourByHourLowPricePrediction}</h2>
             <button onClick={setNightTheme}>Night</button>
             <button onClick={setStormTheme}>Storm</button>
             <button onClick={setSunnyTheme}>Sunny</button>
@@ -101,7 +128,7 @@ export default function App() {
               weatherState={weatherState}
             />
             <HourlyForecast />
-            <WeeklyForecast />
+            <WeeklyForecast priceToday={bitcoinPriceDisplay} />
           </div>
           <Sky weatherState={weatherState} />
           <AppCreators />
