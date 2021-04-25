@@ -13,6 +13,9 @@ export default function HourlyForecast({
   lowPriceForecast,
   randomNumber,
 }) {
+
+  var date = new Date();
+
   return (
     <ScrollContainer className="scroll-container HourlyForecast">
       {hourlyForecastData.map((day, index) => {
@@ -21,6 +24,18 @@ export default function HourlyForecast({
           lowPriceForecast
         )
         let itemIcon
+
+        var hours = (date.getHours() + index + 24) % 24; 
+        var mid = 'am';
+        if (hours === 0){
+          hours = 12;
+        }
+        else if (hours > 12) {
+          hours = hours % 12;
+          mid = 'pm';
+        }
+
+        let displayTime = hours + mid;
 
         if (
           randomHourlyPriceForecast > 63000 &&
@@ -38,7 +53,7 @@ export default function HourlyForecast({
 
         const bitcoinPrice = numeral(randomHourlyPriceForecast).format("0.0a")
         return (
-          <HourWeatherItem key={index} price={bitcoinPrice} icon={itemIcon} />
+          <HourWeatherItem key={index} displayTime={displayTime} price={bitcoinPrice} icon={itemIcon} />
         )
       })}
     </ScrollContainer>
