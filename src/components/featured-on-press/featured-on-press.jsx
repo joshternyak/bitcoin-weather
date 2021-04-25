@@ -25,9 +25,9 @@ export default function FeaturedOnPress() {
       <h3 className="FeaturedOnPress__title">As seen on:</h3>
       <div className="FeaturedOnPress__divider" />
       <div className="FeaturedOnPress__logo-grid">
-        {logos.map((logo) => {
+        {logos.map((logo, index) => {
           return (
-            <div className="FeaturedOnPress__logo">
+            <div className="FeaturedOnPress__logo" key={index}>
               <img
                 src={logo.img}
                 alt={logo.name}

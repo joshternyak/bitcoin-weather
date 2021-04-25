@@ -130,7 +130,6 @@ export default function App() {
                 bottom: "20px",
                 left: "200px",
                 background: "white",
-                display: "none",
               }}
             >
               <p>

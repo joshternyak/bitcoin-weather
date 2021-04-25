@@ -1,9 +1,23 @@
+$mobile-breakpoint: 650px;
+
 .AppCreators {
   display: flex;
   align-items: center;
   position: fixed;
   top: 10px;
   right: 5px;
+
+  &__contact-link {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.65);
+    padding-right: 10px;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.55);
+    }
+  }
 
   &__created-by-label {
     display: none;
@@ -14,12 +28,17 @@
     margin-right: 10px;
   }
 
-  @media (max-width: 500px) {
+  &__col {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: $mobile-breakpoint) {
     position: relative;
     top: unset;
     right: unset;
-    justify-content: flex-start;
-    margin: 40px 0 0 0;
+    justify-content: space-between;
+    margin: 40px 0 10px 0;
 
     &__created-by-label {
       display: block;
