@@ -9,15 +9,9 @@ export default function DayWeatherItem({
   icon,
 }: any) {
   return (
-    <div className={`DayWeatherItem ${today ? "DayWeatherItem--today" : ""}`}>
+    <div className="DayWeatherItem">
       <div className="DayWeatherItem__col">
-        <div
-          className={`DayWeatherItem__day ${
-            today ? "DayWeatherItem__day--today" : ""
-          } `}
-        >
-          {day}
-        </div>
+        <div className="DayWeatherItem__day">{day}</div>
       </div>
       <div className="DayWeatherItem__col">
         <div className="DayWeatherItem__weather-icon">
@@ -26,18 +20,10 @@ export default function DayWeatherItem({
       </div>
       <div className="DayWeatherItem__col">
         <div className="DayWeatherItem__price-group">
-          <p
-            className={`DayWeatherItem__price ${
-              today ? "DayWeatherItem__price--today" : ""
-            }`}
-          >
+          <p className="DayWeatherItem__price">
             {today ? `${highPriceForecast}` : `$${highPriceForecast}`}
           </p>
-          <p
-            className={`DayWeatherItem__price DayWeatherItem__price--low ${
-              today ? "DayWeatherItem__price--low-today" : ""
-            }`}
-          >
+          <p className="DayWeatherItem__price DayWeatherItem__price--low">
             {today ? `${lowPriceForecast}` : `$${lowPriceForecast}`}
           </p>
         </div>

@@ -5,7 +5,6 @@ $today-color: black;
   justify-content: space-between;
   padding: 6px 10px;
   align-items: center;
-  margin: 0px 0px 6px 0;
 
   &__col {
     flex-basis: 33%;
@@ -61,15 +60,5 @@ $today-color: black;
       color: rgba(255, 255, 255, 0.5);
       padding-left: 10px;
     }
-
-    &--today,
-    &--low-today {
-      color: $today-color;
-    }
-  }
-
-  &--today {
-    background: white;
-    border-radius: 10px;
   }
 }

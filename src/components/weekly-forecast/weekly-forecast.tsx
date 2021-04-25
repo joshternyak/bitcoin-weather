@@ -4,9 +4,9 @@ import weeklyForecastData from "../../weeklyForecast"
 import DayWeatherItem from "../day-weather-item/day-weather-item"
 import { currentDay } from "../../helpers"
 import numeral from "numeral"
-import regularCloud from "../../assets/images/small-regular-cloud.png"
-import stormCloud from "../../assets/images/small-storm-cloud.png"
-import sun from "../../assets/images/small-sun.png"
+import regularCloud from "../../assets/images/small-regular-cloud.svg"
+import stormCloud from "../../assets/images/small-storm-cloud.svg"
+import sun from "../../assets/images/small-sun.svg"
 
 export default function WeeklyForecast({
   priceToday,
@@ -14,7 +14,6 @@ export default function WeeklyForecast({
   dailyLowPriceForecast,
   randomNumber,
 }: any) {
-  const today = currentDay
   return (
     <div className="WeeklyForecast">
       {weeklyForecastData.map((day, index) => {
@@ -27,19 +26,13 @@ export default function WeeklyForecast({
           randomDailyHighPriceForecast,
           dailyLowPriceForecast * 0.7
         )
-        const randomDailyLoweredPriceForecast = randomNumber(
-          randomDailyLowPriceForecast,
-          randomDailyLowPriceForecast * 0.7
-        )
+
         const highBitcoinPrice = numeral(randomDailyHighPriceForecast).format(
           "0.0a"
         )
         const lowBitcoinPrice = numeral(randomDailyLowPriceForecast).format(
           "0.0a"
         )
-        const loweredBitcoinPrice = numeral(
-          randomDailyLoweredPriceForecast
-        ).format("0.0a")
 
         if (randomDailyHighPriceForecast > 60000) {
           itemIcon = stormCloud
@@ -51,16 +44,7 @@ export default function WeeklyForecast({
         } else {
           itemIcon = regularCloud
         }
-        return day.day === today ? (
-          <DayWeatherItem
-            today={true}
-            key={index}
-            day={day.day}
-            highPriceForecast={priceToday}
-            lowPriceForecast={loweredBitcoinPrice}
-            icon={itemIcon}
-          />
-        ) : (
+        return (
           <DayWeatherItem
             key={index}
             day={day.day}

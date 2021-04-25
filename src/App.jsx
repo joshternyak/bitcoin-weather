@@ -77,7 +77,7 @@ export default function App() {
 
   // Show storm theme if price of bitcoin is more than $50K
   setInterval(() => {
-    if (unRoundedBitcoinPriceAsNum > 45) setStormTheme()
+    if (unRoundedBitcoinPriceAsNum > 50) setStormTheme()
   }, 1000)
 
   // Show cloudy theme if price of bitcoin is less than $40K
