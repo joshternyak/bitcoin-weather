@@ -10,6 +10,7 @@ import Loading from "./components/loading/loading"
 import "./App.scss"
 import "antd/dist/antd.css"
 import numeral from "numeral"
+import FeaturedOnPress from "./components/featured-on-press/featured-on-press"
 
 export default function App() {
   // Time variables
@@ -123,14 +124,25 @@ export default function App() {
       ) : (
         <div className="App__inner">
           <div className="App__inner-container">
-            <h2>
-              Random high price: {hourByHourHighPricePredictionMultiplied}
-            </h2>
-            <h2>Random low price: {hourByHourLowPricePrediction}</h2>
-            <button onClick={setNightTheme}>Night</button>
-            <button onClick={setStormTheme}>Storm</button>
-            <button onClick={setSunnyTheme}>Sunny</button>
-            <button onClick={setCloudyTheme}>Cloudy</button>
+            <div
+              style={{
+                position: "fixed",
+                bottom: "20px",
+                left: "200px",
+                background: "white",
+                display: "none",
+              }}
+            >
+              <p>
+                Random high price: {hourByHourHighPricePredictionMultiplied}
+                <br />
+                Random low price: {hourByHourLowPricePrediction}
+              </p>
+              <button onClick={setNightTheme}>Night</button>
+              <button onClick={setStormTheme}>Storm</button>
+              <button onClick={setSunnyTheme}>Sunny</button>
+              <button onClick={setCloudyTheme}>Cloudy</button>
+            </div>
             <Navbar />
             <CurrentForecast
               bitcoinPriceNum={unRoundedBitcoinPrice}
@@ -148,6 +160,7 @@ export default function App() {
               dailyLowPriceForecast={lowPriceForecast}
               priceToday={bitcoinPriceDisplay}
             />
+            <FeaturedOnPress />
           </div>
           <Sky weatherState={weatherState} />
           <AppCreators />
