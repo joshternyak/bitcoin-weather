@@ -27,12 +27,19 @@ export default function WeeklyForecast({
           randomDailyHighPriceForecast,
           dailyLowPriceForecast * 0.7
         )
+        const randomDailyLoweredPriceForecast = randomNumber(
+          randomDailyLowPriceForecast,
+          randomDailyLowPriceForecast * 0.7
+        )
         const highBitcoinPrice = numeral(randomDailyHighPriceForecast).format(
           "0.0a"
         )
         const lowBitcoinPrice = numeral(randomDailyLowPriceForecast).format(
           "0.0a"
         )
+        const loweredBitcoinPrice = numeral(
+          randomDailyLoweredPriceForecast
+        ).format("0.0a")
 
         if (randomDailyHighPriceForecast > 60000) {
           itemIcon = stormCloud
@@ -50,7 +57,7 @@ export default function WeeklyForecast({
             key={index}
             day={day.day}
             highPriceForecast={priceToday}
-            lowPriceForecast={lowBitcoinPrice}
+            lowPriceForecast={loweredBitcoinPrice}
             icon={itemIcon}
           />
         ) : (

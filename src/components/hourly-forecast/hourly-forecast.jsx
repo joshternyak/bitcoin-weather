@@ -4,6 +4,9 @@ import hourlyForecastData from "../../hourlyForecast"
 import HourWeatherItem from "../hour-weather-item/hour-weather-item"
 import ScrollContainer from "react-indiana-drag-scroll"
 import numeral from "numeral"
+import regularCloud from "../../assets/images/small-regular-cloud.png"
+import stormCloud from "../../assets/images/small-storm-cloud.png"
+import sun from "../../assets/images/small-sun.png"
 
 export default function HourlyForecast({
   hourlyPriceForecast,
@@ -17,8 +20,26 @@ export default function HourlyForecast({
           hourlyPriceForecast,
           lowPriceForecast
         )
+        let itemIcon
+
+        if (
+          randomHourlyPriceForecast > 63000 &&
+          randomHourlyPriceForecast < 65000
+        ) {
+          itemIcon = stormCloud
+        } else if (
+          randomHourlyPriceForecast < 63000 &&
+          randomHourlyPriceForecast > 45000
+        ) {
+          itemIcon = sun
+        } else {
+          itemIcon = regularCloud
+        }
+
         const bitcoinPrice = numeral(randomHourlyPriceForecast).format("0.0a")
-        return <HourWeatherItem key={index} price={bitcoinPrice} />
+        return (
+          <HourWeatherItem key={index} price={bitcoinPrice} icon={itemIcon} />
+        )
       })}
     </ScrollContainer>
   )
