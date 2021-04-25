@@ -4,9 +4,9 @@ import hourlyForecastData from "../../hourlyForecast"
 import HourWeatherItem from "../hour-weather-item/hour-weather-item"
 import ScrollContainer from "react-indiana-drag-scroll"
 import numeral from "numeral"
-import regularCloud from "../../assets/images/small-regular-cloud.png"
-import stormCloud from "../../assets/images/small-storm-cloud.png"
-import sun from "../../assets/images/small-sun.png"
+import regularCloud from "../../assets/images/hourly-regular-cloud.png"
+import stormCloud from "../../assets/images/hourly-storm-cloud.png"
+import sun from "../../assets/images/hourly-sun.png"
 
 export default function HourlyForecast({
   hourlyPriceForecast,
