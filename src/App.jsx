@@ -129,7 +129,7 @@ export default function App() {
       ) : (
         <div className="App__inner">
           <div className="App__inner-container">
-            {/* <div
+            <div
               style={{
                 position: "fixed",
                 bottom: "20px",
@@ -146,7 +146,7 @@ export default function App() {
               <button onClick={setStormTheme}>Storm</button>
               <button onClick={setSunnyTheme}>Sunny</button>
               <button onClick={setCloudyTheme}>Cloudy</button>
-            </div> */}
+            </div>
             <Navbar />
             <CurrentForecast
               bitcoinPriceNum={unRoundedBitcoinPrice}
