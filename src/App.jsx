@@ -11,6 +11,7 @@ import "./App.scss"
 import "antd/dist/antd.css"
 import numeral from "numeral"
 import FeaturedOnPress from "./components/featured-on-press/featured-on-press"
+import ShareButtons from "./components/share-buttons/share-buttons"
 
 export default function App() {
   // Time variables
@@ -36,6 +37,15 @@ export default function App() {
   const bitcoinPrice = numeral(unRoundedBitcoinPrice).format("0.0a")
   const bitcoinPriceDisplay = `$${bitcoinPrice}`
   const unRoundedBitcoinPriceAsNum = parseInt(unRoundedBitcoinPrice)
+
+  // Generate a random integer between two numbers
+  const randomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  // Social shares
+  let socialSharesNum = unRoundedBitcoinPriceAsNum * 40
+  const socialShares = numeral(socialSharesNum).format("0.0a")
 
   const setStormTheme = () => {
     setTheme("storm")
@@ -85,11 +95,6 @@ export default function App() {
     if (unRoundedBitcoinPriceAsNum < 40) setCloudyTheme()
   }, 1000)
 
-  // Generate a random integer between two numbers
-  const randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-
   // Generate a random high price
   const randomHighPrice = randomNumber(
     unRoundedBitcoinPriceAsNum,
@@ -124,7 +129,7 @@ export default function App() {
       ) : (
         <div className="App__inner">
           <div className="App__inner-container">
-            <div
+            {/* <div
               style={{
                 position: "fixed",
                 bottom: "20px",
@@ -141,7 +146,7 @@ export default function App() {
               <button onClick={setStormTheme}>Storm</button>
               <button onClick={setSunnyTheme}>Sunny</button>
               <button onClick={setCloudyTheme}>Cloudy</button>
-            </div>
+            </div> */}
             <Navbar />
             <CurrentForecast
               bitcoinPriceNum={unRoundedBitcoinPrice}
@@ -163,6 +168,7 @@ export default function App() {
           </div>
           <Sky weatherState={weatherState} />
           <AppCreators />
+          <ShareButtons shareCount={socialShares} />
           <PoweredBy />
         </div>
       )}
