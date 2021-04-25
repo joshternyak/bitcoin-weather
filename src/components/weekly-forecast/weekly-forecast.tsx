@@ -4,6 +4,9 @@ import weeklyForecastData from "../../weeklyForecast"
 import DayWeatherItem from "../day-weather-item/day-weather-item"
 import { currentDay } from "../../helpers"
 import numeral from "numeral"
+import regularCloud from "../../assets/images/small-regular-cloud.png"
+import stormCloud from "../../assets/images/small-storm-cloud.png"
+import sun from "../../assets/images/small-sun.png"
 
 export default function WeeklyForecast({
   priceToday,
@@ -15,6 +18,7 @@ export default function WeeklyForecast({
   return (
     <div className="WeeklyForecast">
       {weeklyForecastData.map((day, index) => {
+        let itemIcon
         const randomDailyHighPriceForecast = randomNumber(
           dailyHighPriceForecast,
           dailyLowPriceForecast * 0.8
@@ -29,13 +33,25 @@ export default function WeeklyForecast({
         const lowBitcoinPrice = numeral(randomDailyLowPriceForecast).format(
           "0.0a"
         )
+
+        if (randomDailyHighPriceForecast > 60000) {
+          itemIcon = stormCloud
+        } else if (
+          randomDailyHighPriceForecast < 60000 &&
+          randomDailyHighPriceForecast > 40000
+        ) {
+          itemIcon = sun
+        } else {
+          itemIcon = regularCloud
+        }
         return day.day === today ? (
           <DayWeatherItem
             today={true}
             key={index}
-            day={today}
+            day={day.day}
             highPriceForecast={priceToday}
             lowPriceForecast={lowBitcoinPrice}
+            icon={itemIcon}
           />
         ) : (
           <DayWeatherItem
@@ -43,6 +59,7 @@ export default function WeeklyForecast({
             day={day.day}
             highPriceForecast={highBitcoinPrice}
             lowPriceForecast={lowBitcoinPrice}
+            icon={itemIcon}
           />
         )
       })}

@@ -22,8 +22,8 @@ export default function CurrentForecast({
 
   return (
     <div className="CurrentForecast">
-      <p className="CurrentForecast__location">Minnesota</p>
-      <p className="CurrentForecast__weather-type">{weatherType}</p>
+      <p className="CurrentForecast__location">Planet Earth</p>
+      <p className="CurrentForecast__weather-type">{weatherType === "storm" ? "Bitcoin Storm!" : weatherType}</p>
       <h1 className="CurrentForecast__price">{currentPrice}</h1>
 
       <div className="CurrentForecast__details">

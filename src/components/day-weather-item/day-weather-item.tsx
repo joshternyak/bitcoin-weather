@@ -1,7 +1,13 @@
 import React from "react"
 import "./day-weather-item.scss"
 
-export default function DayWeatherItem({ day, highPriceForecast, lowPriceForecast, today }: any) {
+export default function DayWeatherItem({
+  day,
+  highPriceForecast,
+  lowPriceForecast,
+  today,
+  icon,
+}: any) {
   return (
     <div className={`DayWeatherItem ${today ? "DayWeatherItem--today" : ""}`}>
       <div className="DayWeatherItem__col">
@@ -14,7 +20,9 @@ export default function DayWeatherItem({ day, highPriceForecast, lowPriceForecas
         </div>
       </div>
       <div className="DayWeatherItem__col">
-        <div className="DayWeatherItem__weather-icon"></div>
+        <div className="DayWeatherItem__weather-icon">
+          <img src={icon} alt="icon" />
+        </div>
       </div>
       <div className="DayWeatherItem__col">
         <div className="DayWeatherItem__price-group">

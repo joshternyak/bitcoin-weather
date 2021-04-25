@@ -34,10 +34,13 @@ $today-color: black;
   }
 
   &__weather-icon {
-    width: 23px;
-    height: 23px;
-    background-color: gold;
-    border-radius: 50%;
+    max-width: 35px;
+    max-height: 35px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   &__price-group {
