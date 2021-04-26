@@ -28,14 +28,16 @@ $collapse-breakpoint: 700px;
     justify-content: center;
     padding: 7.5px 5px;
     transition: 0.2s;
-    max-width: 45px;
+    width: 45px;
+    height: 45px;
 
     &:hover {
       background: #5f9dff;
     }
 
     @media (max-width: $collapse-breakpoint) {
-      max-height: 35px;
+      width: 35px;
+      height: 35px;
       margin: 0px 5px;
     }
   }
