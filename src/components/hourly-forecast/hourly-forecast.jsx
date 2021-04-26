@@ -54,6 +54,7 @@ export default function HourlyForecast({
           <HourWeatherItem
             key={index}
             displayTime={displayTime}
+            currentIndex={index}
             price={bitcoinPrice}
             icon={itemIcon}
           />

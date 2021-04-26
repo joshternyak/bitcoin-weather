@@ -4,15 +4,11 @@ import darkcloud from "../../../assets/images/dark-cloud.png"
 import LightningBolt from "./lightning-bolt/lightning-bolt"
 import "./cloud.scss"
 
-export default function Cloud({theme, night}: any) {
-
+export default function Cloud({ theme, night }: any) {
   return (
     <>
-      <img
-        src={night ? darkcloud : lightcloud}
-        alt="cloud"
-        className="Cloud"
-      />
+      <img src={night ? darkcloud : lightcloud} alt="cloud" className="Cloud" />
+
       {theme === "storm" && <LightningBolt />}
     </>
   )
