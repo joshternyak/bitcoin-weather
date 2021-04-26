@@ -2,14 +2,12 @@ import React from "react"
 import "./weekly-forecast.scss"
 import weeklyForecastData from "../../weeklyForecast"
 import DayWeatherItem from "../day-weather-item/day-weather-item"
-import { currentDay } from "../../helpers"
 import numeral from "numeral"
 import regularCloud from "../../assets/images/small-regular-cloud.svg"
 import stormCloud from "../../assets/images/small-storm-cloud.svg"
 import sun from "../../assets/images/small-sun.svg"
 
 export default function WeeklyForecast({
-  priceToday,
   dailyHighPriceForecast,
   dailyLowPriceForecast,
   randomNumber,
