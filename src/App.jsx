@@ -12,6 +12,7 @@ import "antd/dist/antd.css"
 import numeral from "numeral"
 import FeaturedOnPress from "./components/featured-on-press/featured-on-press"
 import ShareButtons from "./components/share-buttons/share-buttons"
+import {randomNumber} from "./helpers"
 
 export default function App() {
   // Time variables
@@ -37,11 +38,6 @@ export default function App() {
   const bitcoinPrice = numeral(unRoundedBitcoinPrice).format("0.0a")
   const bitcoinPriceDisplay = `$${bitcoinPrice}`
   const unRoundedBitcoinPriceAsNum = parseInt(unRoundedBitcoinPrice)
-
-  // Generate a random integer between two numbers
-  const randomNumber = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
 
   // Social shares
   let socialSharesNum = unRoundedBitcoinPriceAsNum * 40

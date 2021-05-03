@@ -33,6 +33,8 @@ if (hour === 0 && prepand === " AM ") {
     prepand = " AM"
   }
 }
-console.log(
-  "Current Time : " + hour + prepand + " : " + minute + " : " + second
-)
+
+// Generate a random integer between two numbers
+export const randomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
