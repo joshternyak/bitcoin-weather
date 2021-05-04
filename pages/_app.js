@@ -5,7 +5,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Bitcoinweather</title>
+        <title>Bitcoin Weather - See Real-Time Bitcoin Price Predictions</title>
       </Head>
 
       <Component {...pageProps} />
