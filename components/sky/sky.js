@@ -3,7 +3,7 @@ import Sun from "./sun";
 import Cloud from "./cloud";
 import Rain from "./rain";
 import Moon from "./moon";
-import { randomNumber } from "@/public/helpers";
+import { randomNumber, randomNumberNoRound } from "@/public/helpers";
 
 export default function Sky({ weatherState: { theme, cloudy, night } }) {
   return (
@@ -11,7 +11,12 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
       {theme === "sunny" && !night && <Sun />}
       {night && <Moon />}
       {cloudy && <Cloud theme={theme} night={night} />}
-      {theme === "storm" && <Rain randomNumber={randomNumber} />}
+      {theme === "storm" && (
+        <Rain
+          randomNumber={randomNumber}
+          randomNumberNoRound={randomNumberNoRound}
+        />
+      )}
       <style jsx>{`
         .Sky {
           position: fixed;
