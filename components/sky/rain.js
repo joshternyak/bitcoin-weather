@@ -1,4 +1,4 @@
-export default function Rain({ randomNumber }) {
+export default function Rain({ randomNumber, randomNumberNoRound }) {
   var amount;
   let rainDrops = [];
   setTimeout(() => {
@@ -6,13 +6,17 @@ export default function Rain({ randomNumber }) {
   }, 2000);
 
   for (amount = 0; amount < 30; amount++) {
-    const randomLeftNum = randomNumber(0, 2000);
-    const randomTopNum = randomNumber(-200, 100);
-    const randomSize = randomNumber(30, 60);
+    const randomSpeed = randomNumberNoRound(1, 2);
+    const randomDelay = randomNumberNoRound(0, 5);
+    const randomLeftNum = randomNumberNoRound(0, 100);
+    const randomTopNum = randomNumberNoRound(-300, -50);
+    const randomSize = randomNumberNoRound(0, 30);
 
     rainDrops.push(
       <RainDroplet
         key={amount}
+        randomSpeed={randomSpeed}
+        randomDelay={randomDelay}
         randomLeftNumber={randomLeftNum}
         randomTopNumber={randomTopNum}
         randomSize={randomSize}
@@ -24,16 +28,22 @@ export default function Rain({ randomNumber }) {
   return <div className="Rain">{rainDrops}</div>;
 }
 
-const RainDroplet = ({ randomLeftNumber, randomTopNumber, randomSize }) => {
+const RainDroplet = ({
+  randomSpeed,
+  randomDelay,
+  randomLeftNumber,
+  randomTopNumber,
+  randomSize,
+}) => {
   return (
     <>
       <img
         src="./static/images/bitcoin-raindrop.svg"
         style={{
-          left: `${randomLeftNumber}px`,
+          left: `${randomLeftNumber}%`,
           top: `${randomTopNumber}px`,
-          width: `${randomSize}px`,
-          height: `${randomSize}px`,
+          width: `${randomSize + 20}px`,
+          height: `${randomSize + 20}px`,
         }}
         className="raindrop"
       ></img>
@@ -41,17 +51,19 @@ const RainDroplet = ({ randomLeftNumber, randomTopNumber, randomSize }) => {
         @keyframes droplet {
           from {
             top: ${randomTopNumber};
+            opacity: 1;
           }
           to {
             top: 100vh;
+            opacity: 0;
           }
         }
         .raindrop {
-          width: 30px;
-          height: 30px;
           border-radius: 50%;
           background: gold;
-          animation: droplet 2s ease-in infinite;
+          filter: blur(${(randomSize - 30) * -0.1}px);
+          animation: droplet ${randomSpeed}s ease-in infinite;
+          animation-delay: ${randomDelay}s;
           position: fixed;
         }
       `}</style>
