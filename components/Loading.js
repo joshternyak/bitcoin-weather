@@ -24,7 +24,7 @@ function Loading() {
           <h3 className="Loading__subtitle">DID YOU KNOW?</h3>
           <h1 className="Loading__title">{randomFact}</h1>
           <div className="Loading__bitcoin-spinner">
-            <img src="./static/images/bitcoin-spinner.png" alt="bitcoin" />
+            <img src="./static/images/bitcoin-spinner.svg" alt="bitcoin" />
           </div>
         </div>
         <div className="Loading__col">

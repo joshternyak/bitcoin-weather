@@ -36,7 +36,7 @@ export default function HourWeatherItem({
           color: #ffffff;
         }
         .HourWeatherItem__weather-icon {
-          height: 30px;
+          height: 35px;
           margin-bottom: 10px;
         }
         .HourWeatherItem__weather-icon img {

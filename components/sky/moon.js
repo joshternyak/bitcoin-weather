@@ -8,9 +8,9 @@ export default function Moon() {
         {`
           .Moon {
             position: fixed;
-            left: -58px;
-            top: 75px;
-            max-width: 164px;
+            left: -50px;
+            top: 0px;
+            max-width: 550px;
           }
         `}
       </style>

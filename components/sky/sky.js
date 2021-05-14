@@ -33,19 +33,19 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
         }
 
         .Sky--sunny {
-          background: linear-gradient(195.24deg, #47bfdf 2.07%, #4a91ff 97.37%);
+          background: linear-gradient(195.24deg, #aadbff 2.07%, #5f9dff 97.37%);
         }
 
         .Sky--storm {
-          background: linear-gradient(195.24deg, #507ced 2.07%, #214f96 97.37%);
+          background: linear-gradient(195.24deg, #486cc9 2.07%, #163e7c 97.37%);
         }
 
         .Sky--night {
           background: linear-gradient(
-            195.24deg,
-            #485e96 2.07%,
-            #1d2737 97.37%
-          ) !important;
+            339.09deg,
+            #131a33 27.69%,
+            #303d6a 80.69%
+          );
         }
       `}</style>
     </div>
