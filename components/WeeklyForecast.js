@@ -38,14 +38,14 @@ export default function WeeklyForecast({
         ).format("0.0a");
 
         if (randomDailyHighPriceForecast > 60000) {
-          itemIcon = "small-storm-cloud.png";
+          itemIcon = "small-storm-cloud.svg";
         } else if (
           randomDailyHighPriceForecast < 60000 &&
           randomDailyHighPriceForecast > 40000
         ) {
-          itemIcon = "small-sun.png";
+          itemIcon = "small-sun.svg";
         } else {
-          itemIcon = "small-regular-cloud.png";
+          itemIcon = "small-regular-cloud.svg";
         }
         return day.day === today ? (
           <DayWeatherItem
@@ -69,6 +69,7 @@ export default function WeeklyForecast({
       <style jsx>
         {`
           .WeeklyForecast {
+            width: 100%;
             padding-top: 10px;
           }
         `}

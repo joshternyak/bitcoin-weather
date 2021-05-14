@@ -9,7 +9,7 @@ import PoweredBy from "@/components/PoweredBy";
 import Loading from "@/components/Loading";
 import "antd/dist/antd.css";
 import Share from "@/components/Share";
-import { randomNumber } from "@/public/helpers";
+import { randomNumber, currentDay } from "@/public/helpers";
 import numeral from "numeral";
 import FeaturedOnPress from "@/components/FeaturedOnPress";
 
@@ -116,6 +116,7 @@ export default function App() {
 
   const hourlyPriceForecast = hourByHourHighPricePredictionMultiplied;
   const lowPriceForecast = hourByHourLowPricePrediction;
+  
 
   return (
     <div className="App">
@@ -124,7 +125,7 @@ export default function App() {
       ) : (
         <div className="App__inner">
           <div className="App__inner-container">
-            {/* <div
+            <div
               style={{
                 position: "fixed",
                 bottom: "20px",
@@ -141,24 +142,40 @@ export default function App() {
               <button onClick={setStormTheme}>Storm</button>
               <button onClick={setSunnyTheme}>Sunny</button>
               <button onClick={setCloudyTheme}>Cloudy</button>
-            </div> */}
+            </div>
             <Navbar />
             <CurrentForecast
               bitcoinPriceNum={unRoundedBitcoinPrice}
-              currentPrice={bitcoinPriceDisplay}
               weatherState={weatherState}
+              currentPrice={bitcoinPriceDisplay}
             />
-            <HourlyForecast
-              randomNumber={randomNumber}
-              hourlyPriceForecast={hourlyPriceForecast}
-              lowPriceForecast={lowPriceForecast}
-            />
-            <WeeklyForecast
-              randomNumber={randomNumber}
-              dailyHighPriceForecast={hourlyPriceForecast}
-              dailyLowPriceForecast={lowPriceForecast}
-              priceToday={bitcoinPriceDisplay}
-            />
+            <div className="glasswindow">
+              <div className="CurrentForecast__details">
+                <div className="CurrentForecast__flex-group">
+                  <p className="CurrentForecast__today">{currentDay}</p>
+                  <p className="CurrentForecast__label">Today</p>
+                </div>
+                <div className="CurrentForecast__flex-group">
+                  <p className="CurrentForecast__high-price">
+                    {bitcoinPriceDisplay}
+                  </p>
+                  <p className="CurrentForecast__low-price">
+                    ${numeral(parseInt(unRoundedBitcoinPrice) / 2).format("0.0a")}K
+                  </p>
+                </div>
+              </div>
+              <HourlyForecast
+                randomNumber={randomNumber}
+                hourlyPriceForecast={hourlyPriceForecast}
+                lowPriceForecast={lowPriceForecast}
+              />
+              <WeeklyForecast
+                randomNumber={randomNumber}
+                dailyHighPriceForecast={hourlyPriceForecast}
+                dailyLowPriceForecast={lowPriceForecast}
+                priceToday={bitcoinPriceDisplay}
+              />
+            </div>
             <FeaturedOnPress />
           </div>
           <Sky weatherState={weatherState} />
@@ -171,12 +188,12 @@ export default function App() {
         {`
           .App {
             min-height: 100vh;
-            min-width: 100vw;
             width: 100vw;
             overflow-x: hidden;
           }
           .App__inner {
             max-width: 543px;
+            height: auto;
             margin-left: auto;
             margin-right: auto;
             padding: 0px 10px;
@@ -186,6 +203,66 @@ export default function App() {
             z-index: 2;
             min-height: 100vh;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+          }
+          .glasswindow {
+            width: 100%;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.01);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+          .CurrentForecast__details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0px;
+            width: 100%;
+          }
+          .CurrentForecast__flex-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .CurrentForecast__today,
+          .CurrentForecast__label {
+            font-weight: 500;
+          }
+          .CurrentForecast__today {
+            font-size: 15px;
+            line-height: 26px;
+            color: #ffffff;
+          }
+          .CurrentForecast__label {
+            font-size: 10px;
+            line-height: 165.02%;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+          }
+          .CurrentForecast__high-price,
+          .CurrentForecast__low-price {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 26px;
+            text-transform: uppercase;
+          }
+          .CurrentForecast__high-price {
+            color: #ffffff;
+          }
+          .CurrentForecast__low-price {
+            color: rgba(255, 255, 255, 0.5);
+          }
+          .CurrentForecast__today,
+          .CurrentForecast__label,
+          .CurrentForecast__high-price,
+          .CurrentForecast__low-price {
+            padding: 0px 7px;
           }
         `}
       </style>

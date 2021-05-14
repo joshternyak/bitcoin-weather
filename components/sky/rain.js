@@ -59,6 +59,7 @@ const RainDroplet = ({
           }
         }
         .raindrop {
+          z-index: -100;
           border-radius: 50%;
           background: gold;
           filter: blur(${(randomSize - 30) * -0.1}px);
