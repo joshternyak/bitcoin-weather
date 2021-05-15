@@ -6,7 +6,6 @@ import Sky from "@/components/sky/sky";
 import HourlyForecast from "@/components/HourlyForecast";
 import WeeklyForecast from "@/components/WeeklyForecast";
 import PoweredBy from "@/components/PoweredBy";
-import Loading from "@/components/Loading";
 import "antd/dist/antd.css";
 import Share from "@/components/Share";
 import { randomNumber, currentDay } from "@/public/helpers";
@@ -15,7 +14,6 @@ import FeaturedOnPress from "@/components/FeaturedOnPress";
 
 export default function App() {
   // Time variables
-  const [loading, setLoading] = useState(true);
   const hours = new Date().getHours();
   const isDayTime = hours > 6 && hours < 20;
 
@@ -70,9 +68,6 @@ export default function App() {
       setCurrency(data.bpi.USD.code);
       setPriceData(data.bpi);
     }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
     // This interval is temporarily commented out.
     // const interval = setInterval(() => {
     fetchPrices();
@@ -120,9 +115,6 @@ export default function App() {
 
   return (
     <div className="App">
-      {loading ? (
-        <Loading />
-      ) : (
         <div className="App__inner">
           <div className="App__inner-container">
             <div
@@ -183,7 +175,6 @@ export default function App() {
           <Share shareCount={socialShares} />
           <PoweredBy />
         </div>
-      )}
       <style jsx>
         {`
           .App {
