@@ -25,9 +25,7 @@ export default function CurrentForecast({
       <p className="CurrentForecast__weather-type">
         {weatherType === "storm" ? "Bitcoin Storm!" : weatherType}
       </p>
-      <h1 className="CurrentForecast__price">
-        {currentPrice}
-      </h1>
+      <h1 className="CurrentForecast__price">{currentPrice}</h1>
       <style jsx>
         {`
           .CurrentForecast {

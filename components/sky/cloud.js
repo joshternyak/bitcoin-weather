@@ -8,37 +8,59 @@ export default function Cloud({ theme, night }) {
   cloudTheme = theme === "storm" ? "storm" : "";
   return (
     <>
-      <img
-        src={"./static/images/" + cloudTheme + "-cloud.png"}
-        alt="cloud"
-        className="Cloud1"
-      />
-      <img
-        src={"./static/images/" + cloudTheme + "-cloud.png"}
-        alt="cloud"
-        className="Cloud2"
-      />
-      <img
-        src={
-          theme === "storm"
-            ? "./static/images/dark-cloud.png"
-            : "./static/images/light-cloud.png"
-        }
-        alt="cloud"
-        className="Cloud3"
-      />
-      <img
-        src={
-          theme === "storm"
-            ? "./static/images/dark-cloud.png"
-            : "./static/images/light-cloud.png"
-        }
-        alt="cloud"
-        className="Cloud4"
-      />
+      <div className="cloud-container">
+        <img
+          src={
+            theme === "storm" || night
+              ? "./static/images/dark-cloud.png"
+              : "./static/images/light-cloud.png"
+          }
+          alt="cloud"
+          className="Cloud1"
+        />
+        <img
+          src={
+            theme === "storm" || night
+              ? "./static/images/dark-cloud.png"
+              : "./static/images/light-cloud.png"
+          }
+          alt="cloud"
+          className="Cloud2"
+        />
+        <img
+          src={
+            theme === "storm" || night
+              ? "./static/images/dark-cloud.png"
+              : "./static/images/light-cloud.png"
+          }
+          alt="cloud"
+          className="Cloud3"
+        />
+        <img
+          src={
+            theme === "storm" || night
+              ? "./static/images/dark-cloud.png"
+              : "./static/images/light-cloud.png"
+          }
+          alt="cloud"
+          className="Cloud4"
+        />
+      </div>
       {/* {theme === "storm" && <LightningBolt />} */}
       <style jsx>
         {`
+          @keyframes CloudZoom {
+            from {
+              transform: scale(5) translate(-50%, -50%);
+              filter: blur(30px);
+              opacity: 0;
+            }
+            to {
+              transform: scale(1) translate(-50%, -50%);
+              filter: blur(0px);
+              opacity: 1;
+            }
+          }
           @keyframes Cloud1 {
             from {
               margin-left: 250px;
@@ -71,6 +93,13 @@ export default function Cloud({ theme, night }) {
               margin-left: 640px;
             }
           }
+          .cloud-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: CloudZoom 2s ease-out;
+          }
           .Cloud1 {
             position: fixed;
             transform: translate(-50%, -50%);
@@ -80,6 +109,7 @@ export default function Cloud({ theme, night }) {
             left: 50%;
             max-width: 650px;
             animation: Cloud1 3s ease-in-out infinite alternate;
+            transition: all 2s;
           }
           .Cloud2 {
             position: fixed;
@@ -92,6 +122,7 @@ export default function Cloud({ theme, night }) {
             max-width: 450px;
             animation: Cloud2 3s ease-in-out infinite alternate;
             animation-delay: 0.5s;
+            transition: all 2s;
           }
           .Cloud3 {
             position: fixed;
@@ -103,6 +134,7 @@ export default function Cloud({ theme, night }) {
             max-width: 450px;
             animation: Cloud3 3s ease-in-out infinite alternate;
             animation-delay: 1s;
+            transition: all 2s;
           }
           .Cloud4 {
             position: fixed;
@@ -114,6 +146,7 @@ export default function Cloud({ theme, night }) {
             filter: blur(12px);
             animation: Cloud4 3s ease-in-out infinite alternate;
             animation-delay: 1.5s;
+            transition: all 2s;
           }
         `}
       </style>

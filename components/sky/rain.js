@@ -1,4 +1,4 @@
-export default function Rain({ randomNumber, randomNumberNoRound }) {
+export default function Rain({ randomNumberNoRound }) {
   var amount;
   let rainDrops = [];
   setTimeout(() => {

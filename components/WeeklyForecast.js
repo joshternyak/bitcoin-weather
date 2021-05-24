@@ -6,54 +6,33 @@ import numeral from "numeral";
 
 export default function WeeklyForecast({
   priceToday,
-  dailyHighPriceForecast,
-  dailyLowPriceForecast,
-  randomNumber,
+  lastSixDaysHighs,
+  lastSixDaysLows,
 }) {
   const today = currentDay;
   return (
     <div className="WeeklyForecast">
       {weeklyForecastData.map((day, index) => {
         let itemIcon;
-        const randomDailyHighPriceForecast = randomNumber(
-          dailyHighPriceForecast,
-          dailyLowPriceForecast * 0.8
-        );
-        const randomDailyLowPriceForecast = randomNumber(
-          randomDailyHighPriceForecast,
-          dailyLowPriceForecast * 0.7
-        );
-        const randomDailyLoweredPriceForecast = randomNumber(
-          randomDailyLowPriceForecast,
-          randomDailyLowPriceForecast * 0.7
-        );
-        const highBitcoinPrice = numeral(randomDailyHighPriceForecast).format(
+        const highBitcoinPrice = numeral(lastSixDaysHighs[index]).format(
           "0.0a"
         );
-        const lowBitcoinPrice = numeral(randomDailyLowPriceForecast).format(
-          "0.0a"
-        );
-        const loweredBitcoinPrice = numeral(
-          randomDailyLoweredPriceForecast
-        ).format("0.0a");
-
-        if (randomDailyHighPriceForecast > 60000) {
+        const lowBitcoinPrice = numeral(lastSixDaysLows[index]).format("0.0a");
+        console.log(lastSixDaysHighs[index] - lastSixDaysHighs[index - 1]);
+        if (lastSixDaysHighs[index] - lastSixDaysHighs[index - 1] > 1000) {
           itemIcon = "small-storm-cloud.svg";
-        } else if (
-          randomDailyHighPriceForecast < 60000 &&
-          randomDailyHighPriceForecast > 40000
-        ) {
-          itemIcon = "small-sun.svg";
-        } else {
+        } else if (lastSixDaysHighs[index] - lastSixDaysHighs[index - 1] < 0) {
           itemIcon = "small-regular-cloud.svg";
+        } else {
+          itemIcon = "small-sun.svg";
         }
         return day.day === today ? (
           <DayWeatherItem
             today={true}
             key={index}
             day={day.day}
-            highPriceForecast={priceToday}
-            lowPriceForecast={loweredBitcoinPrice}
+            highPriceForecast={highBitcoinPrice}
+            lowPriceForecast={lowBitcoinPrice}
             icon={itemIcon}
           />
         ) : (

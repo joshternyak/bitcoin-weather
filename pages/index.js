@@ -31,7 +31,10 @@ export default function App() {
   // Bitcoin price API variables
   const [priceData, setPriceData] = useState(null);
   const [currency, setCurrency] = useState(null);
-  const unRoundedBitcoinPrice = priceData && priceData[currency].rate;
+  const [lastSixDaysLows, setLastSixDaysLows] = useState([]);
+  const [lastSixDaysHighs, setLastSixDaysHighs] = useState([]);
+  const [glassShadow, setGlassShadow] = useState("");
+  let unRoundedBitcoinPrice = priceData && priceData[currency].rate;
   const bitcoinPrice = numeral(unRoundedBitcoinPrice).format("0.0a");
   const bitcoinPriceDisplay = `$${bitcoinPrice}`;
   const unRoundedBitcoinPriceAsNum = parseInt(unRoundedBitcoinPrice);
@@ -42,19 +45,23 @@ export default function App() {
 
   const setStormTheme = () => {
     setTheme("storm");
+    setGlassShadow("rgba(31, 38, 135, 0.37)");
     setCloudyTheme();
   };
 
   const setCloudyTheme = () => {
     setCloudy(true);
+    setGlassShadow("#224b864f");
   };
 
   const setNightTheme = () => {
     setNight(true);
+    setGlassShadow("#06042ca3");
   };
 
   const setSunnyTheme = () => {
     setTheme("sunny");
+    setGlassShadow("#224b864f");
     setNight(false);
   };
 
@@ -68,22 +75,44 @@ export default function App() {
       setCurrency(data.bpi.USD.code);
       setPriceData(data.bpi);
     }
-    // This interval is temporarily commented out.
-    // const interval = setInterval(() => {
+
+    async function fetchLastSixDays() {
+      const resHigh = await fetch(
+        "https://api.coindesk.com/v1/bpi/historical/high.json"
+      );
+      const dataHigh = await resHigh.json();
+      setLastSixDaysHighs(
+        Object.values(dataHigh.bpi).slice(Math.max(25, 0)).reverse()
+      );
+
+      const resLow = await fetch(
+        "https://api.coindesk.com/v1/bpi/historical/low.json"
+      );
+      const dataLow = await resLow.json();
+      setLastSixDaysLows(
+        Object.values(dataLow.bpi).slice(Math.max(25, 0)).reverse()
+      );
+
+      console.log(
+        `highs: ${Object.values(dataHigh.bpi)
+          .slice(Math.max(25, 0))
+          .reverse()} \n lows: ${Object.values(dataLow.bpi)
+          .slice(Math.max(25, 0))
+          .reverse()}`
+      );
+    }
+    fetchLastSixDays();
     fetchPrices();
-    // }, 1000)
-    // return () => clearInterval(interval)
+    if (unRoundedBitcoinPrice - lastSixDaysHighs[0] > 1000) {
+      setStormTheme();
+    } else if (unRoundedBitcoinPrice - lastSixDaysHighs[0] < 0) {
+      setCloudyTheme();
+    } else {
+      setSunnyTheme();
+    }
   }, []);
 
-  // Show storm theme if price of bitcoin is more than $50K
-  setInterval(() => {
-    if (unRoundedBitcoinPriceAsNum > 50) setStormTheme();
-  }, 1000);
-
-  // Show cloudy theme if price of bitcoin is less than $40K
-  setInterval(() => {
-    if (unRoundedBitcoinPriceAsNum < 40) setCloudyTheme();
-  }, 1000);
+  unRoundedBitcoinPrice = 39000;
 
   // Generate a random high price
   const randomHighPrice = randomNumber(
@@ -111,70 +140,68 @@ export default function App() {
 
   const hourlyPriceForecast = hourByHourHighPricePredictionMultiplied;
   const lowPriceForecast = hourByHourLowPricePrediction;
-  
-
   return (
     <div className="App">
-        <div className="App__inner">
-          <div className="App__inner-container">
-            <div
-              style={{
-                position: "fixed",
-                bottom: "20px",
-                left: "200px",
-                background: "white",
-              }}
-            >
-              <p>
-                Random high price: {hourByHourHighPricePredictionMultiplied}
-                <br />
-                Random low price: {hourByHourLowPricePrediction}
-              </p>
-              <button onClick={setNightTheme}>Night</button>
-              <button onClick={setStormTheme}>Storm</button>
-              <button onClick={setSunnyTheme}>Sunny</button>
-              <button onClick={setCloudyTheme}>Cloudy</button>
-            </div>
-            <Navbar />
-            <CurrentForecast
-              bitcoinPriceNum={unRoundedBitcoinPrice}
-              weatherState={weatherState}
-              currentPrice={bitcoinPriceDisplay}
-            />
-            <div className="glasswindow">
-              <div className="CurrentForecast__details">
-                <div className="CurrentForecast__flex-group">
-                  <p className="CurrentForecast__today">{currentDay}</p>
-                  <p className="CurrentForecast__label">Today</p>
-                </div>
-                <div className="CurrentForecast__flex-group">
-                  <p className="CurrentForecast__high-price">
-                    {bitcoinPriceDisplay}
-                  </p>
-                  <p className="CurrentForecast__low-price">
-                    ${numeral(parseInt(unRoundedBitcoinPrice) / 2).format("0.0a")}K
-                  </p>
-                </div>
-              </div>
-              <HourlyForecast
-                randomNumber={randomNumber}
-                hourlyPriceForecast={hourlyPriceForecast}
-                lowPriceForecast={lowPriceForecast}
-              />
-              <WeeklyForecast
-                randomNumber={randomNumber}
-                dailyHighPriceForecast={hourlyPriceForecast}
-                dailyLowPriceForecast={lowPriceForecast}
-                priceToday={bitcoinPriceDisplay}
-              />
-            </div>
-            <FeaturedOnPress />
+      <div className="App__inner">
+        <div className="App__inner-container">
+          <div
+            style={{
+              position: "fixed",
+              bottom: "20px",
+              left: "200px",
+              background: "white",
+            }}
+          >
+            <p>
+              Random high price: {hourByHourHighPricePredictionMultiplied}
+              <br />
+              Random low price: {hourByHourLowPricePrediction}
+            </p>
+            <button onClick={setNightTheme}>Night</button>
+            <button onClick={setStormTheme}>Storm</button>
+            <button onClick={setSunnyTheme}>Sunny</button>
+            <button onClick={setCloudyTheme}>Cloudy</button>
           </div>
-          <Sky weatherState={weatherState} />
-          <AppCreators />
-          <Share shareCount={socialShares} />
-          <PoweredBy />
+          <Navbar />
+          <CurrentForecast
+            bitcoinPriceNum={unRoundedBitcoinPrice}
+            weatherState={weatherState}
+            currentPrice={bitcoinPriceDisplay}
+          />
+          <div className="glasswindow">
+            <div className="CurrentForecast__details">
+              <div className="CurrentForecast__flex-group">
+                <p className="CurrentForecast__today">{currentDay}</p>
+                <p className="CurrentForecast__label">Today</p>
+              </div>
+              <div className="CurrentForecast__flex-group">
+                <p className="CurrentForecast__high-price">
+                  {bitcoinPriceDisplay}
+                </p>
+                <p className="CurrentForecast__low-price">
+                  ${numeral(parseInt(unRoundedBitcoinPrice) / 2).format("0.0a")}
+                  K
+                </p>
+              </div>
+            </div>
+            <HourlyForecast
+              randomNumber={randomNumber}
+              hourlyPriceForecast={hourlyPriceForecast}
+              lowPriceForecast={lowPriceForecast}
+            />
+            <WeeklyForecast
+              lastSixDaysHighs={lastSixDaysHighs}
+              lastSixDaysLows={lastSixDaysLows}
+              priceToday={bitcoinPriceDisplay}
+            />
+          </div>
+          <FeaturedOnPress />
         </div>
+        <Sky weatherState={weatherState} />
+        <AppCreators />
+        <Share shareCount={socialShares} />
+        <PoweredBy />
+      </div>
       <style jsx>
         {`
           .App {
@@ -203,7 +230,7 @@ export default function App() {
             width: 100%;
             padding: 18px;
             background: rgba(255, 255, 255, 0.01);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 ${glassShadow};
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(6px);
             border-radius: 18px;
