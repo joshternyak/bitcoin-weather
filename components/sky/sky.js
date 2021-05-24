@@ -3,20 +3,15 @@ import Sun from "./sun";
 import Cloud from "./cloud";
 import Rain from "./rain";
 import Moon from "./moon";
-import { randomNumber, randomNumberNoRound } from "@/public/helpers";
+import { randomNumberNoRound } from "@/public/helpers";
 
 export default function Sky({ weatherState: { theme, cloudy, night } }) {
   return (
     <div className={`Sky Sky--${theme} ${night ? "Sky--night" : ""} `}>
       {theme === "sunny" && !night && <Sun />}
-      {night && <Moon />}
+      {night && <Moon randomNumberNoRound={randomNumberNoRound} />}
       {cloudy && <Cloud theme={theme} night={night} />}
-      {theme === "storm" && (
-        <Rain
-          randomNumber={randomNumber}
-          randomNumberNoRound={randomNumberNoRound}
-        />
-      )}
+      {theme === "storm" && <Rain randomNumberNoRound={randomNumberNoRound} />}
       <style jsx>{`
         .Sky {
           position: fixed;
@@ -26,6 +21,7 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
           height: 100vh;
           user-select: none;
           z-index: -100;
+          transition: background 1.5s;
         }
 
         .Sky img {
@@ -33,19 +29,15 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
         }
 
         .Sky--sunny {
-          background: linear-gradient(195.24deg, #aadbff 2.07%, #5f9dff 97.37%);
+          background: #5f9dff;
         }
 
         .Sky--storm {
-          background: linear-gradient(195.24deg, #486cc9 2.07%, #163e7c 97.37%);
+          background: #163e7c;
         }
 
         .Sky--night {
-          background: linear-gradient(
-            339.09deg,
-            #131a33 27.69%,
-            #303d6a 80.69%
-          );
+          background: #131a33;
         }
       `}</style>
     </div>
