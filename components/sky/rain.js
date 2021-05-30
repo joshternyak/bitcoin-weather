@@ -22,7 +22,6 @@ export default function Rain({ randomNumberNoRound }) {
         randomSize={randomSize}
       />
     );
-    console.log(amount, " is the length");
   }
 
   return <div className="Rain">{rainDrops}</div>;

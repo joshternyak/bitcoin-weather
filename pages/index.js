@@ -31,8 +31,8 @@ export default function App() {
   // Bitcoin price API variables
   const [priceData, setPriceData] = useState(null);
   const [currency, setCurrency] = useState(null);
-  const [lastSixDaysLows, setLastSixDaysLows] = useState([]);
-  const [lastSixDaysHighs, setLastSixDaysHighs] = useState([]);
+  const [lastWeekLows, setlastWeekLows] = useState([]);
+  const [lastWeekHighs, setlastWeekHighs] = useState([]);
   const [glassShadow, setGlassShadow] = useState("");
   let unRoundedBitcoinPrice = priceData && priceData[currency].rate;
   const bitcoinPrice = numeral(unRoundedBitcoinPrice).format("0.0a");
@@ -61,6 +61,7 @@ export default function App() {
 
   const setSunnyTheme = () => {
     setTheme("sunny");
+    setCloudy(false);
     setGlassShadow("#224b864f");
     setNight(false);
   };
@@ -76,36 +77,36 @@ export default function App() {
       setPriceData(data.bpi);
     }
 
-    async function fetchLastSixDays() {
+    async function fetchlastWeek() {
       const resHigh = await fetch(
         "https://api.coindesk.com/v1/bpi/historical/high.json"
       );
       const dataHigh = await resHigh.json();
-      setLastSixDaysHighs(
-        Object.values(dataHigh.bpi).slice(Math.max(25, 0)).reverse()
+      setlastWeekHighs(
+        Object.values(dataHigh.bpi).slice(Math.max(24, 0)).reverse()
       );
 
       const resLow = await fetch(
         "https://api.coindesk.com/v1/bpi/historical/low.json"
       );
       const dataLow = await resLow.json();
-      setLastSixDaysLows(
-        Object.values(dataLow.bpi).slice(Math.max(25, 0)).reverse()
+      setlastWeekLows(
+        Object.values(dataLow.bpi).slice(Math.max(24, 0)).reverse()
       );
 
       console.log(
         `highs: ${Object.values(dataHigh.bpi)
-          .slice(Math.max(25, 0))
+          .slice(Math.max(24, 0))
           .reverse()} \n lows: ${Object.values(dataLow.bpi)
-          .slice(Math.max(25, 0))
+          .slice(Math.max(24, 0))
           .reverse()}`
       );
     }
-    fetchLastSixDays();
+    fetchlastWeek();
     fetchPrices();
-    if (unRoundedBitcoinPrice - lastSixDaysHighs[0] > 1000) {
+    if (unRoundedBitcoinPrice - lastWeekHighs[0] > 1000) {
       setStormTheme();
-    } else if (unRoundedBitcoinPrice - lastSixDaysHighs[0] < 0) {
+    } else if (unRoundedBitcoinPrice - lastWeekHighs[0] < 0) {
       setCloudyTheme();
     } else {
       setSunnyTheme();
@@ -190,8 +191,8 @@ export default function App() {
               lowPriceForecast={lowPriceForecast}
             />
             <WeeklyForecast
-              lastSixDaysHighs={lastSixDaysHighs}
-              lastSixDaysLows={lastSixDaysLows}
+              lastWeekHighs={lastWeekHighs}
+              lastWeekLows={lastWeekLows}
               priceToday={bitcoinPriceDisplay}
             />
           </div>
@@ -231,8 +232,8 @@ export default function App() {
             padding: 18px;
             background: rgba(255, 255, 255, 0.01);
             box-shadow: 0 8px 32px 0 ${glassShadow};
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 18px;
             border: 1px solid rgba(255, 255, 255, 0.1);
           }
