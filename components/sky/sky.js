@@ -6,11 +6,15 @@ import Moon from "./moon";
 import { randomNumberNoRound } from "@/public/helpers";
 
 export default function Sky({ weatherState: { theme, cloudy, night } }) {
+  let showClouds = false;
+
+  showClouds = cloudy || theme === "storm" || night;
+
   return (
     <div className={`Sky Sky--${theme} ${night ? "Sky--night" : ""} `}>
       {theme === "sunny" && !night && <Sun />}
       {night && <Moon randomNumberNoRound={randomNumberNoRound} />}
-      {cloudy && <Cloud theme={theme} night={night} />}
+      {showClouds && <Cloud theme={theme} night={night} />}
       {theme === "storm" && <Rain randomNumberNoRound={randomNumberNoRound} />}
       <style jsx>{`
         .Sky {
@@ -29,7 +33,8 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
         }
 
         .Sky--sunny {
-          background: #5f9dff;
+          background: linear-gradient(195.24deg, #b0d1e6 2.07%, #5f9dff 97.37%),
+            #ffffff;
         }
 
         .Sky--storm {

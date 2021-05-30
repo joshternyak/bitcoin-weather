@@ -2,10 +2,6 @@ import React from "react";
 import LightningBolt from "./lightning-bolt";
 
 export default function Cloud({ theme, night }) {
-  let cloudTheme = "";
-
-  cloudTheme = night ? "night" : "light";
-  cloudTheme = theme === "storm" ? "storm" : "";
   return (
     <>
       <div className="cloud-container">

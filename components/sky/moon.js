@@ -1,14 +1,14 @@
 import React from "react";
 import MoneyGuy from "./money-guy/MoneyGuy";
 
-export default function Moon({randomNumberNoRound}) {
+export default function Moon({ randomNumberNoRound }) {
   let cash = [];
   for (let i = 0; i < 25; i++) {
     let xOffset = randomNumberNoRound(0, 50);
     let delay = randomNumberNoRound(0, 2);
     let rotation = randomNumberNoRound(-50, 50);
     cash.push(
-      <Bill xOffset={xOffset} delay={delay} rotation={rotation} />
+      <Bill xOffset={xOffset} delay={delay} rotation={rotation} key={i} />
     );
   }
   return (
@@ -114,13 +114,9 @@ export default function Moon({randomNumberNoRound}) {
   );
 }
 
-function Bill({
-  delay,
-  xOffset,
-  rotation
-}) {
+function Bill({ delay, xOffset, rotation, key }) {
   return (
-    <div className="bill">
+    <div className="bill" key={key}>
       <div className="bill-inner">$</div>
       <style jsx>{`
         @keyframes yAxis {
