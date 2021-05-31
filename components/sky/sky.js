@@ -38,11 +38,13 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
         }
 
         .Sky--storm {
-          background: #163e7c;
+          background: linear-gradient(195.24deg, #486cc9 2.07%, #10356d 97.37%),
+            #ffffff;
         }
 
         .Sky--night {
-          background: #131a33;
+          background: linear-gradient(339.09deg, #131a33 27.69%, #303d6a 80.69%),
+            #ffffff;
         }
       `}</style>
     </div>

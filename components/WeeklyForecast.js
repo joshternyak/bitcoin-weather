@@ -39,6 +39,10 @@ export default function WeeklyForecast({
         },
         ticks: {
           color: "white",
+          family: "Kumbh Sans",
+          font: {
+            family: "Kumbh Sans",
+          },
         },
       },
       y: {
@@ -47,7 +51,16 @@ export default function WeeklyForecast({
         },
         ticks: {
           color: "white",
+          stepSize: 5000,
+          font: {
+            family: "Kumbh Sans",
+          },
         },
+        // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
+        min: Math.round(Math.min(...lastWeekHighs) / 1000) * 1000 - 5000,
+
+        // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
+        max: Math.round(Math.max(...lastWeekHighs) / 1000) * 1000 + 5000,
       },
     },
     plugins: {
@@ -55,7 +68,7 @@ export default function WeeklyForecast({
         display: true,
         text: "BTC Highs",
         color: "white",
-        font: { size: 18 },
+        font: { size: 18, family: "Kumbh Sans" },
         padding: {
           top: 20,
           bottom: 20,
@@ -65,6 +78,9 @@ export default function WeeklyForecast({
         display: false,
         labels: {
           color: "white",
+          font: {
+            family: "Kumbh Sans",
+          },
         },
       },
     },
@@ -100,6 +116,7 @@ export default function WeeklyForecast({
             .WeeklyForecast {
               width: 100%;
               padding: 10px 0;
+              border-top: 1px solid #ffffff40;
               border-bottom: 1px solid #ffffff40;
             }
             .WeeklyForecast__title {
