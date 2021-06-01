@@ -23,11 +23,11 @@ export default function Navbar() {
           padding: 19px 0;
           border-bottom: 1px solid rgba(255, 255, 255, 0.25);
           max-width: 337px;
-          margin: 0px auto 35px auto;
+          margin: 10px auto 35px auto;
         }
         .Navbar__logo {
           max-width: 208px;
-          margin-bottom: 15px;
+          margin-bottom: 20px;
         }
         .Navbar__description {
           font-style: normal;

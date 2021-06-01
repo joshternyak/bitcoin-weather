@@ -21,8 +21,10 @@ export default function CurrentForecast({
   }
 
   const btcChange =
-    Math.round((parseInt(bitcoinPrice) / yesterdayHigh) * 100 - 100) / 100;
-  console.log(bitcoinPriceNum);
+    Math.round(
+      (parseInt(bitcoinPriceNum.replace(",", "")) / yesterdayHigh) * 100
+    ) / 100;
+  console.log(yesterdayHigh);
   const btcUp = btcChange >= 0 ? true : false;
 
   const weatherType = !night && theme !== "storm" && !cloudy ? "Clear" : theme;
@@ -37,7 +39,7 @@ export default function CurrentForecast({
         <h1 className="CurrentForecast__price">{currentPrice}</h1>
         <div className="CurrentForecast__change">
           {btcUp ? (
-            <ArrowUp size={20} strokeWidth={2} color="#81dea3" />
+            <ArrowUp size={20} strokeWidth={2} color="#c6ffdb" />
           ) : (
             <ArrowDown size={20} strokeWidth={2} color="#ff4040" />
           )}
@@ -51,7 +53,6 @@ export default function CurrentForecast({
             font-style: normal;
             color: #ffffff;
             width: 100%;
-            margin-bottom: 25px;
           }
           .CurrentForecast__location {
             font-weight: 500;
@@ -85,7 +86,7 @@ export default function CurrentForecast({
             position: absolute;
             top: 20px;
             left: 410px;
-            background: ${btcUp ? "#0e5e36aa" : "#3f0e0eaa"};
+            background: ${btcUp ? "#0e5e36aa" : "#5c1414"};
             font-weight: 500;
             padding: 6px;
             line-height: 0;
@@ -96,7 +97,7 @@ export default function CurrentForecast({
             font-weight: 500;
             margin: -1px 0 0 3px;
             font-family: monospace;
-            color: ${btcUp ? "#81dea3" : "#ff4040"};
+            color: ${btcUp ? "#c6ffdb" : "#ff4040"};
           }
         `}
       </style>
