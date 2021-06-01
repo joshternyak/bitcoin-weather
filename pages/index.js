@@ -3,12 +3,11 @@ import Navbar from "@/components/Navbar";
 import AppCreators from "@/components/AppCreators";
 import CurrentForecast from "@/components/CurrentForecast";
 import Sky from "@/components/sky/sky";
-import HourlyForecast from "@/components/HourlyForecast";
 import WeeklyForecast from "@/components/WeeklyForecast";
 import PoweredBy from "@/components/PoweredBy";
 import "antd/dist/antd.css";
 import Share from "@/components/Share";
-import { randomNumber, currentDay } from "@/public/helpers";
+import { currentDay } from "@/public/helpers";
 import numeral from "numeral";
 import FeaturedOnPress from "@/components/FeaturedOnPress";
 
@@ -37,11 +36,6 @@ export default function App() {
   let unRoundedBitcoinPrice = priceData && priceData[currency].rate;
   const bitcoinPrice = numeral(unRoundedBitcoinPrice).format("0.0a");
   const bitcoinPriceDisplay = `$${bitcoinPrice}`;
-  const unRoundedBitcoinPriceAsNum = parseInt(unRoundedBitcoinPrice);
-
-  // Social shares
-  let socialSharesNum = unRoundedBitcoinPriceAsNum * 40;
-  const socialShares = numeral(socialSharesNum).format("0.0a");
 
   const setStormTheme = () => {
     setTheme("storm");
@@ -82,17 +76,13 @@ export default function App() {
         "https://api.coindesk.com/v1/bpi/historical/high.json"
       );
       const dataHigh = await resHigh.json();
-      setlastWeekHighs(
-        Object.values(dataHigh.bpi).slice(Math.max(24, 0)).reverse()
-      );
+      setlastWeekHighs(Object.values(dataHigh.bpi).slice(Math.max(23, 0)));
 
       const resLow = await fetch(
         "https://api.coindesk.com/v1/bpi/historical/low.json"
       );
       const dataLow = await resLow.json();
-      setlastWeekLows(
-        Object.values(dataLow.bpi).slice(Math.max(24, 0)).reverse()
-      );
+      setlastWeekLows(Object.values(dataLow.bpi).slice(Math.max(23, 0)));
 
       console.log(
         `highs: ${Object.values(dataHigh.bpi)
@@ -113,34 +103,6 @@ export default function App() {
     }
   }, []);
 
-  unRoundedBitcoinPrice = 39000;
-
-  // Generate a random high price
-  const randomHighPrice = randomNumber(
-    unRoundedBitcoinPriceAsNum,
-    unRoundedBitcoinPriceAsNum * 1.5
-  );
-  const hourByHourHighPricePrediction = parseInt(randomHighPrice);
-  const hourByHourHighPricePredictionMultiplied =
-    hourByHourHighPricePrediction * 1000;
-
-  // Generate a random low price
-  const randomLowPriceMultiplier = randomNumber(950, 800);
-  const randomLowPrice = randomNumber(
-    hourByHourHighPricePredictionMultiplied,
-    hourByHourHighPricePrediction * parseInt(randomLowPriceMultiplier)
-  );
-  const hourByHourLowPricePrediction = parseInt(randomLowPrice);
-
-  // We should write two different useEffect functions
-  // 1. One that only runs once which will fetch the bitcoin price once and plug it into the high and low prices variables that will then be passed as props into the hourly and weekly forecast. Inside those components the high and low price props will be multiplied by another random number so they're random for each weekday item or hour item
-
-  // 2. And the other useeffect will stay the same like it is now to constantly update the main price every second
-
-  // For now, we'll just use the original useeffect that is updated to only run once
-
-  const hourlyPriceForecast = hourByHourHighPricePredictionMultiplied;
-  const lowPriceForecast = hourByHourLowPricePrediction;
   return (
     <div className="App">
       <div className="App__inner">
@@ -153,11 +115,6 @@ export default function App() {
               background: "white",
             }}
           >
-            <p>
-              Random high price: {hourByHourHighPricePredictionMultiplied}
-              <br />
-              Random low price: {hourByHourLowPricePrediction}
-            </p>
             <button onClick={setNightTheme}>Night</button>
             <button onClick={setStormTheme}>Storm</button>
             <button onClick={setSunnyTheme}>Sunny</button>
@@ -168,6 +125,8 @@ export default function App() {
             bitcoinPriceNum={unRoundedBitcoinPrice}
             weatherState={weatherState}
             currentPrice={bitcoinPriceDisplay}
+            glassShadow={glassShadow}
+            yesterdayHigh={lastWeekHighs[6]}
           />
           <div className="glasswindow">
             <div className="CurrentForecast__details">
@@ -184,11 +143,6 @@ export default function App() {
                 </p>
               </div>
             </div>
-            <HourlyForecast
-              randomNumber={randomNumber}
-              hourlyPriceForecast={hourlyPriceForecast}
-              lowPriceForecast={lowPriceForecast}
-            />
             <WeeklyForecast
               lastWeekHighs={lastWeekHighs}
               lastWeekLows={lastWeekLows}
@@ -199,7 +153,7 @@ export default function App() {
         </div>
         <Sky weatherState={weatherState} />
         <AppCreators />
-        <Share shareCount={socialShares} />
+        <Share />
         <PoweredBy />
       </div>
       <style jsx>

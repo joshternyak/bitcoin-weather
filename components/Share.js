@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Share({ shareCount }) {
+export default function Share() {
   return (
     <div className="ShareButtons">
       <a
@@ -31,10 +31,6 @@ export default function Share({ shareCount }) {
           alt="twitter logo"
         />
       </a>
-      <div className="ShareButtons__footer">
-        <p className="ShareButtons__share-count-label">Shares</p>
-        <p className="ShareButtons__share-count">{shareCount}</p>
-      </div>
       <style jsx>
         {`
           .ShareButtons {
@@ -81,25 +77,6 @@ export default function Share({ shareCount }) {
           }
           .ShareButtons__logo {
             width: 20px;
-          }
-          .ShareButtons__share-count-label {
-            margin-bottom: 0px;
-            padding-top: 3px;
-            font-size: 12px;
-          }
-          @media (max-width: 700px) {
-            .ShareButtons__share-count-label {
-              padding-top: 0px;
-            }
-          }
-          .ShareButtons__share-count {
-            font-size: 19.5px;
-            font-weight: bold;
-          }
-          @media (max-width: 700px) {
-            .ShareButtons__footer {
-              margin-left: 10px;
-            }
           }
         `}
       </style>

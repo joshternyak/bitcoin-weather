@@ -22,8 +22,9 @@ class MyDocument extends Document {
             sizes="16x16"
             href="/static/favicon/favicon-16x16.png"
           />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap"
             rel="stylesheet"
           />
           <link rel="manifest" href="/static/favicon/site.webmanifest" />
