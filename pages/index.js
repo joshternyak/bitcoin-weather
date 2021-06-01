@@ -9,7 +9,6 @@ import "antd/dist/antd.css";
 import Share from "@/components/Share";
 import { currentDay } from "@/public/helpers";
 import numeral from "numeral";
-import FeaturedOnPress from "@/components/FeaturedOnPress";
 
 export default function App() {
   // Time variables
@@ -149,7 +148,6 @@ export default function App() {
               priceToday={bitcoinPriceDisplay}
             />
           </div>
-          <FeaturedOnPress />
         </div>
         <Sky weatherState={weatherState} />
         <AppCreators />

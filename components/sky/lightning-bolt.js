@@ -5,11 +5,11 @@ import Image from "next/image";
 export default function LightningBolt() {
   return (
     <>
-      <img
+      {/* <img
         src="./static/images/lightning-bolt.png"
         alt="lightning bolt"
         className="LightningBolt"
-      />
+      /> */}
       <style jsx>
         {`
           .LightningBolt {
