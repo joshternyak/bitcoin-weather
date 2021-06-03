@@ -144,6 +144,11 @@ export default function Cloud({ theme, night }) {
             animation-delay: 1.5s;
             transition: all 2s;
           }
+          @media only screen and (max-width: 800px) {
+            .Cloud2, .Cloud3, .Cloud4 {
+              display: none;
+            }
+          }
         `}
       </style>
     </>

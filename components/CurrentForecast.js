@@ -22,10 +22,9 @@ export default function CurrentForecast({
 
   const btcChange =
     Math.round(
-      (parseInt(bitcoinPriceNum.replace(",", "")) / yesterdayHigh) * 100
-    ) / 100;
-  console.log(yesterdayHigh);
-  const btcUp = btcChange >= 0 ? true : false;
+      (parseInt(bitcoinPriceNum?.replace(",", "")) / yesterdayHigh) * 100) / 100;
+  console.log(bitcoinPriceNum);
+  const btcUp = btcChange >= 1 ? true : false;
 
   const weatherType = !night && theme !== "storm" && !cloudy ? "Clear" : theme;
 
