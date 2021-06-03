@@ -1,6 +1,5 @@
 import React from "react";
 import { Tooltip } from "antd";
-import Image from "next/image";
 
 export default function AppCreators() {
   return (
