@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 
 export default function Rain({ randomNumberNoRound }) {
-  let raindropsNum = window.innerWidth <= 800 ? 15 : 30;
-  window.addEventListener("resize", () => {
-    raindropsNum = window.innerWidth <= 800 ? 15 : 30;
-  })
 
   var amount;
   let rainDrops = [];
@@ -15,7 +11,7 @@ export default function Rain({ randomNumberNoRound }) {
 
   useEffect(() => {});
 
-  for (amount = 0; amount < raindropsNum; amount++) {
+  for (amount = 0; amount < 20; amount++) {
     const randomSpeed = randomNumberNoRound(1, 2);
     const randomDelay = randomNumberNoRound(0, 5);
     const randomLeftNum = randomNumberNoRound(0, 100);

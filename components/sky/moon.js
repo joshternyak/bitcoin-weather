@@ -1,14 +1,10 @@
-import React from "react";
+import {useEffect} from "react";
 import MoneyGuy from "./money-guy/MoneyGuy";
 
 export default function Moon({ randomNumberNoRound }) {
-  
-  let cashNum = window.innerWidth <= 800 ? 10 : 20;
-  window.addEventListener("resize", () => {
-    cashNum = window.innerWidth <= 800 ? 10 : 20;
-  });
+
   let cash = [];
-  for (let i = 0; i < cashNum; i++) {
+  for (let i = 0; i < 20; i++) {
     let xOffset = randomNumberNoRound(0, 50);
     let delay = randomNumberNoRound(0, 2);
     let rotation = randomNumberNoRound(-50, 50);
