@@ -139,7 +139,6 @@ export default function App() {
                 </p>
                 <p className="CurrentForecast__low-price">
                   ${numeral(parseInt(unRoundedBitcoinPrice) / 2).format("0.0a")}
-                  K
                 </p>
               </div>
             </div>
