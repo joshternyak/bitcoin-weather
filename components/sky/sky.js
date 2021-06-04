@@ -12,7 +12,7 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
 
   return (
     <div className={`Sky Sky--${theme} ${night ? "Sky--night" : ""} `}>
-      {theme === "sunny" && !night && <Sun />}
+      {theme === ("sunny" && !night) && <Sun />}
       {night && <Moon randomNumberNoRound={randomNumberNoRound} />}
       {showClouds && <Cloud theme={theme} night={night} />}
       {theme === "storm" && <Rain randomNumberNoRound={randomNumberNoRound} />}

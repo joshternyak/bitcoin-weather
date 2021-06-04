@@ -82,20 +82,25 @@ export default function App() {
       );
       const dataLow = await resLow.json();
       setlastWeekLows(Object.values(dataLow.bpi).slice(Math.max(23, 0)));
-
-      console.log(
-        `highs: ${Object.values(dataHigh.bpi)
-          .slice(Math.max(24, 0))
-          .reverse()} \n lows: ${Object.values(dataLow.bpi)
-          .slice(Math.max(24, 0))
-          .reverse()}`
-      );
+      // console.log(
+      //   `highs: ${Object.values(dataHigh.bpi)
+      //     .slice(Math.max(24, 0))
+      //     .reverse()} \n lows: ${Object.values(dataLow.bpi)
+      //     .slice(Math.max(24, 0))
+      //     .reverse()}`
+      // );
     }
     fetchlastWeek();
     fetchPrices();
-    if (unRoundedBitcoinPrice - lastWeekHighs[0] > 1000) {
+    if (
+      parseInt(unRoundedBitcoinPrice?.replace(",", "")) - lastWeekHighs[6] >
+      1000
+    ) {
       setStormTheme();
-    } else if (unRoundedBitcoinPrice - lastWeekHighs[0] < 0) {
+    } else if (
+      parseInt(unRoundedBitcoinPrice?.replace(",", "")) - lastWeekHighs[6] <
+      0
+    ) {
       setCloudyTheme();
     } else {
       setSunnyTheme();
@@ -136,10 +141,6 @@ export default function App() {
               <div className="CurrentForecast__flex-group">
                 <p className="CurrentForecast__high-price">
                   {bitcoinPriceDisplay}
-                </p>
-                <p className="CurrentForecast__low-price">
-                  ${numeral(parseInt(unRoundedBitcoinPrice) / 2).format("0.0a")}
-                  K
                 </p>
               </div>
             </div>
