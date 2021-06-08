@@ -1,13 +1,13 @@
 import React from "react";
 import LightningBolt from "./lightning-bolt";
 
-export default function Cloud({ theme, night }) {
+export default function Cloud({ weather, isDay }) {
   return (
     <>
       <div className="cloud-container">
         <img
           src={
-            theme === "storm" || night
+            weather === "storm" || !isDay
               ? "./static/images/dark-cloud.png"
               : "./static/images/light-cloud.png"
           }
@@ -16,7 +16,7 @@ export default function Cloud({ theme, night }) {
         />
         <img
           src={
-            theme === "storm" || night
+            weather === "storm" || !isDay
               ? "./static/images/dark-cloud.png"
               : "./static/images/light-cloud.png"
           }
@@ -25,7 +25,7 @@ export default function Cloud({ theme, night }) {
         />
         <img
           src={
-            theme === "storm" || night
+            weather === "storm" || !isDay
               ? "./static/images/dark-cloud.png"
               : "./static/images/light-cloud.png"
           }
@@ -34,7 +34,7 @@ export default function Cloud({ theme, night }) {
         />
         <img
           src={
-            theme === "storm" || night
+            weather === "storm" || !isDay
               ? "./static/images/dark-cloud.png"
               : "./static/images/light-cloud.png"
           }
@@ -145,8 +145,15 @@ export default function Cloud({ theme, night }) {
             transition: all 2s;
           }
           @media only screen and (max-width: 800px) {
-            .Cloud2, .Cloud3, .Cloud4 {
+            .Cloud2,
+            .Cloud3,
+            .Cloud4 {
               display: none;
+            }
+
+            .Cloud1 {
+              max-width: 450px;
+              margin-top: -20px;
             }
           }
         `}

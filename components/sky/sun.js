@@ -19,11 +19,9 @@ export default function Sun() {
             0% {
               opacity: 1;
               box-shadow: 50px 50px 100px 20px rgba(255, 216, 147, 0.58);
-              margin-top: 0px;
             }
             100% {
               box-shadow: 10px 10px 60px 10px rgba(255, 216, 147, 0.58);
-              margin-top: 30px;
             }
           }
         `}

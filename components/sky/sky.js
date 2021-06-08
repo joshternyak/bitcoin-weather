@@ -1,21 +1,25 @@
-import React from "react";
 import Sun from "./sun";
 import Cloud from "./cloud";
 import Rain from "./rain";
 import Moon from "./moon";
 import { randomNumberNoRound } from "@/public/helpers";
 
-export default function Sky({ weatherState: { theme, cloudy, night } }) {
-  let showClouds = false;
+export default function Sky({ weather: {isDay, weatherType} }) {
 
-  showClouds = cloudy || theme === "storm" || night;
+  const clouds = weatherType === "cloudy" || weatherType === "storm";
 
   return (
-    <div className={`Sky Sky--${theme} ${night ? "Sky--night" : ""} `}>
-      {theme === "sunny" && !night && <Sun />}
-      {night && <Moon randomNumberNoRound={randomNumberNoRound} />}
-      {showClouds && <Cloud theme={theme} night={night} />}
-      {theme === "storm" && <Rain randomNumberNoRound={randomNumberNoRound} />}
+    <div
+      className={`Sky ${
+        !isDay ? `Sky--night Sky--${weatherType}` : `Sky--${weatherType}`
+      } `}
+    >
+      {weatherType === "clear" && isDay && <Sun />}
+      {!isDay && <Moon randomNumberNoRound={randomNumberNoRound} />}
+      {clouds && <Cloud weather={weatherType} isDay={isDay} />}
+      {weatherType === "storm" && (
+        <Rain randomNumberNoRound={randomNumberNoRound} />
+      )}
       <style jsx>{`
         .Sky {
           position: fixed;
@@ -32,7 +36,8 @@ export default function Sky({ weatherState: { theme, cloudy, night } }) {
           width: 100%;
         }
 
-        .Sky--sunny {
+        .Sky--clear:not(.Sky--night),
+        .Sky--cloudy:not(.Sky--night) {
           background: linear-gradient(195.24deg, #b0d1e6 2.07%, #5f9dff 97.37%),
             #ffffff;
         }

@@ -13,12 +13,17 @@ import numeral from "numeral";
 export default function App() {
   // Time variables
   const hours = new Date().getHours();
-  const isDayTime = hours > 6 && hours < 20;
 
   // Weather variables
   const [theme, setTheme] = useState("sunny");
   const [cloudy, setCloudy] = useState(false);
-  const [night, setNight] = useState(!isDayTime);
+  const [night, setNight] = useState(false);
+
+  const [isDay, setIsDay] = useState(hours > 6 && hours < 20);
+
+  const [weatherType, setWeatherType] = useState(""); // Can be either "clear", "cloudy", or "stormy"
+
+  const weather = {isDay, weatherType};
 
   const weatherState = {
     theme,
@@ -37,26 +42,27 @@ export default function App() {
   const bitcoinPriceDisplay = `$${bitcoinPrice}`;
 
   const setStormTheme = () => {
-    setTheme("storm");
-    setGlassShadow("rgba(31, 38, 135, 0.37)");
-    setCloudyTheme();
+    setWeatherType("storm");
+    setGlassShadow(weather.isDay ? "#1f26874f" : "#06042ca3");
   };
 
   const setCloudyTheme = () => {
-    setCloudy(true);
-    setGlassShadow("#224b864f");
+    setWeatherType("cloudy");
+    setGlassShadow(weather.isDay ? "#224b864f" : "#06042ca3");
   };
 
   const setNightTheme = () => {
-    setNight(true);
+    setIsDay(false);
     setGlassShadow("#06042ca3");
   };
 
-  const setSunnyTheme = () => {
-    setTheme("sunny");
-    setCloudy(false);
+  const setClearTheme = () => {
+    setWeatherType("clear");
+    setGlassShadow(weather.isDay ? "#224b864f" : "#06042ca3");
+  };
+  const setDayTheme = () => {
+    setIsDay(true);
     setGlassShadow("#224b864f");
-    setNight(false);
   };
 
   // For fetching the current bitcoin price
@@ -82,13 +88,6 @@ export default function App() {
       );
       const dataLow = await resLow.json();
       setlastWeekLows(Object.values(dataLow.bpi).slice(Math.max(23, 0)));
-      // console.log(
-      //   `highs: ${Object.values(dataHigh.bpi)
-      //     .slice(Math.max(24, 0))
-      //     .reverse()} \n lows: ${Object.values(dataLow.bpi)
-      //     .slice(Math.max(24, 0))
-      //     .reverse()}`
-      // );
     }
     fetchlastWeek();
     fetchPrices();
@@ -96,14 +95,17 @@ export default function App() {
       parseInt(unRoundedBitcoinPrice?.replace(",", "")) - lastWeekHighs[6] >
       1000
     ) {
-      setStormTheme();
+      setWeatherType("storm");
+      setGlassShadow(weather.isDay ? "#1f26874f" : "#06042ca3");
     } else if (
       parseInt(unRoundedBitcoinPrice?.replace(",", "")) - lastWeekHighs[6] <
       0
     ) {
-      setCloudyTheme();
+      setWeatherType("cloudy");
+      setGlassShadow(weather.isDay ? "#224b864f" : "#06042ca3");
     } else {
-      setSunnyTheme();
+      setWeatherType("clear");
+      setGlassShadow(weather.isDay ? "#224b864f" : "#06042ca3");
     }
   }, []);
 
@@ -119,9 +121,10 @@ export default function App() {
               background: "white",
             }}
           >
+            <button onClick={setDayTheme}>Day</button>
             <button onClick={setNightTheme}>Night</button>
             <button onClick={setStormTheme}>Storm</button>
-            <button onClick={setSunnyTheme}>Sunny</button>
+            <button onClick={setClearTheme}>Clear</button>
             <button onClick={setCloudyTheme}>Cloudy</button>
           </div>
           <Navbar />
@@ -151,7 +154,7 @@ export default function App() {
             />
           </div>
         </div>
-        <Sky weatherState={weatherState} />
+        <Sky weather={weather} />
         <AppCreators />
         <Share />
         <PoweredBy />
