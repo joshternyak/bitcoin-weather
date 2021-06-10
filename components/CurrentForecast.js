@@ -26,12 +26,11 @@ export default function CurrentForecast({
 
   return (
     <div className="CurrentForecast">
-      <p className="CurrentForecast__location">Planet Earth</p>
-      <p className="CurrentForecast__weather-type">
+      {/* <p className="CurrentForecast__weather-type">
         {weatherType === "storm" ? "Bitcoin Storm!" : weatherType}
-      </p>
+      </p> */}
       <div className="CurrentForecast__price__outer">
-        <h1 className="CurrentForecast__price">{currentPrice}</h1>
+        <h1 className={`CurrentForecast__price ${btcUp ? 'CurrentForecast__price--up' : 'CurrentForecast__price-down'}`}>{currentPrice}</h1>
         <div className="CurrentForecast__change">
           {btcUp ? (
             <ArrowUp size={20} strokeWidth={2} color="#c6ffdb" />
@@ -49,12 +48,6 @@ export default function CurrentForecast({
             color: #ffffff;
             width: 100%;
           }
-          .CurrentForecast__location {
-            font-weight: 500;
-            font-size: 25px;
-            line-height: 31px;
-            margin-bottom: 5px;
-          }
           .CurrentForecast__weather-type {
             font-size: 15px;
             font-weight: 300;
@@ -68,11 +61,32 @@ export default function CurrentForecast({
           .CurrentForecast__price {
             font-style: normal;
             font-weight: bold;
-            font-size: 75px;
-            line-height: 94px;
-            color: #ffffff;
-            text-shadow: 0px 10px 20px ${glassShadow};
+            font-size: 100px;
+            line-height: 100%;
+            letter-spacing: -1px;
             text-transform: uppercase;
+            background-size: 100%;
+            background-repeat: repeat;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-background-clip: text;
+            -moz-text-fill-color: transparent;
+            animation-name: current-price-green-glow;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            user-select: none;
+          }
+          @media(max-width: 900px) {
+            .CurrentForecast__price {
+              font-size: 80px;
+              line-height: 100%;
+            }
+          }
+          .CurrentForecast__price--up {
+            background-image: linear-gradient(46deg,#d0ead0,#8fd88f);
+          }
+          .CurrentForecast__price--down {
+            background-image: linear-gradient(46deg,#900cd2,#7709ae);
           }
           .CurrentForecast__change {
             display: flex;
@@ -80,7 +94,7 @@ export default function CurrentForecast({
             justify-content: center;
             position: absolute;
             top: 20px;
-            left: 410px;
+            right: -15px;
             background: ${btcUp ? "#0e5e36aa" : "#5c1414"};
             font-weight: 500;
             padding: 6px;

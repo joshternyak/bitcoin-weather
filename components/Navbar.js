@@ -11,7 +11,7 @@ export default function Navbar() {
         />
       </a>
       <p className="Navbar__description">
-        See how bitcoin is performing, in real-time.
+        See bitcoin's weather forecast, real-time.
       </p>
       <style jsx>{`
         .Navbar {
