@@ -22,9 +22,9 @@ export default function DayWeatherItem({
           <p className="DayWeatherItem__price">
             {today ? `${highPriceForecast}` : `$${highPriceForecast}`}
           </p>
-          <p className="DayWeatherItem__price DayWeatherItem__price--low">
+          {/* <p className="DayWeatherItem__price DayWeatherItem__price--low">
             {today ? `${lowPriceForecast}` : `$${lowPriceForecast}`}
-          </p>
+          </p> */}
         </div>
       </div>
       <style jsx>
